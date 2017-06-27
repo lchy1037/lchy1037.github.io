@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[my-first-blog]]></title>
     <url>%2F2017%2F05%2F24%2Fmy-first-blog%2F</url>
-    <content type="text"><![CDATA[This is my first blog using NexT themes. This is a test blog123456#include &lt;iostream&gt;using namespace std;int main()&#123; cout &lt;&lt; "hello world!" &lt;&lt; endl; return 0;&#125; codeblockhello.cpp12345#include &lt;iostream&gt;using namespace std;int main(int argc, char* argv[])&#123; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[This is my first blog using NexT themes. This is a test blog123456#include &lt;iostream&gt;using namespace std;int main()&#123; cout &lt;&lt; "hello world!" &lt;&lt; endl; return 0;&#125; 与世界分享我的知识、经验和见解 codeblockhello.cpp12345#include &lt;iostream&gt;using namespace std;int main(int argc, char* argv[])&#123; return 0;&#125;]]></content>
       <categories>
         <category>随笔</category>
       </categories>
