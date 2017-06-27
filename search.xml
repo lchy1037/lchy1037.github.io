@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[my-first-blog]]></title>
+    <url>%2F2017%2F05%2F24%2Fmy-first-blog%2F</url>
+    <content type="text"><![CDATA[This is my first blog using NexT themes. This is a test blog123456#include &lt;iostream&gt;using namespace std;int main()&#123; cout &lt;&lt; "hello world!" &lt;&lt; endl; return 0;&#125; codeblockhello.cpp12345#include &lt;iostream&gt;using namespace std;int main(int argc, char* argv[])&#123; return 0;&#125;]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F05%2F24%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to hexo! Qucik Start. Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+</search>
