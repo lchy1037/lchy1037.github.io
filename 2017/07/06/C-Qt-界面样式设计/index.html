@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++,Qt,界面样式," />
 
 
 
@@ -90,15 +90,21 @@
 
 
 
-<meta name="description" content="就算是条咸鱼 也要做最咸的一条">
-<meta property="og:type" content="website">
-<meta property="og:title" content="个人笔记">
-<meta property="og:url" content="http://lchy1037.github.io/index.html">
+<meta name="description" content="Qt 开发中有两种方法来进行 UI 定制：Qt 二维绘图 (Qt 2D drawing and painting) 以及 Qt 样式表 (Qt Style Sheet)，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 Qt 样式表 (Qt Style Sheet)，对使用 Qt 设计界面和控件样式的一些方法进行总结（建议用 QSS 写界面）。">
+<meta name="keywords" content="C++,Qt,界面样式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt 界面样式设计">
+<meta property="og:url" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/index.html">
 <meta property="og:site_name" content="个人笔记">
-<meta property="og:description" content="就算是条咸鱼 也要做最咸的一条">
+<meta property="og:description" content="Qt 开发中有两种方法来进行 UI 定制：Qt 二维绘图 (Qt 2D drawing and painting) 以及 Qt 样式表 (Qt Style Sheet)，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 Qt 样式表 (Qt Style Sheet)，对使用 Qt 设计界面和控件样式的一些方法进行总结（建议用 QSS 写界面）。">
+<meta property="og:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/MyQLabel.png">
+<meta property="og:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/SearchBox.png">
+<meta property="og:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/ScrollBar-stylesheet.png">
+<meta property="og:updated_time" content="2017-07-11T02:49:44.920Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人笔记">
-<meta name="twitter:description" content="就算是条咸鱼 也要做最咸的一条">
+<meta name="twitter:title" content="Qt 界面样式设计">
+<meta name="twitter:description" content="Qt 开发中有两种方法来进行 UI 定制：Qt 二维绘图 (Qt 2D drawing and painting) 以及 Qt 样式表 (Qt Style Sheet)，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 Qt 样式表 (Qt Style Sheet)，对使用 Qt 设计界面和控件样式的一些方法进行总结（建议用 QSS 写界面）。">
+<meta name="twitter:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/MyQLabel.png">
 
 
 
@@ -126,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://lchy1037.github.io/"/>
+  <link rel="canonical" href="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/"/>
 
 
 
 
 
-  <title>个人笔记</title>
+  <title>Qt 界面样式设计 | 个人笔记</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -168,9 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <a href="https://github.com/lchy1037"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
@@ -309,9 +313,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -337,9 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/06/C-Qt-界面样式设计/" itemprop="url">Qt 界面样式设计</a></h1>
+          <h1 class="post-title" itemprop="name headline">Qt 界面样式设计</h1>
         
 
         <div class="post-meta">
@@ -404,157 +406,13 @@
           
 
           
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Qt 开发中有两种方法来进行 UI 定制：<strong>Qt 二维绘图 (Qt 2D drawing and painting)</strong> 以及 <strong>Qt 样式表 (Qt Style Sheet)</strong>，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 <strong>Qt 样式表 (Qt Style Sheet)</strong>，对使用 <code>Qt</code> 设计界面和控件样式的一些方法进行总结（建议用 <code>QSS</code> 写界面）。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/06/C-Qt-界面样式设计/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://lchy1037.github.io/2017/05/24/随笔-my-first-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ChaoyangLuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar/github_0.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/24/随笔-my-first-blog/" itemprop="url">my-first-blog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T12:06:52+08:00">
-                2017-05-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
             </span>
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/24/随笔-my-first-blog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/24/随笔-my-first-blog/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
 
           
 
@@ -568,199 +426,243 @@
       
 
       
+        <p>Qt 开发中有两种方法来进行 UI 定制：<strong>Qt 二维绘图 (Qt 2D drawing and painting)</strong> 以及 <strong>Qt 样式表 (Qt Style Sheet)</strong>，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 <strong>Qt 样式表 (Qt Style Sheet)</strong>，对使用 <code>Qt</code> 设计界面和控件样式的一些方法进行总结（建议用 <code>QSS</code> 写界面）。<br><a id="more"></a><br><!-- TOC --></p>
+<ul>
+<li><a href="#1-qt-界面样式设计">1. Qt 界面样式设计</a><ul>
+<li><a href="#11-控件样式设计">1.1. 控件样式设计</a><ul>
+<li><a href="#111-qlabel-样式">1.1.1. QLabel 样式</a></li>
+<li><a href="#112-qcombobox">1.1.2. QComboBox</a></li>
+<li><a href="#113-qeditline">1.1.3. QEditLine</a></li>
+<li><a href="#114-qcheckbox">1.1.4. QCheckbox</a></li>
+<li><a href="#115-qpushbutton">1.1.5. QPushButton</a></li>
+<li><a href="#116-qscrollbar">1.1.6. QScrollBar</a></li>
+<li><a href="#117-qtablewidget">1.1.7. QTableWidget</a></li>
+</ul>
+</li>
+<li><a href="#12-参考资料">1.2. 参考资料</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-Qt-界面样式设计"><a href="#1-Qt-界面样式设计" class="headerlink" title="1. Qt 界面样式设计"></a>1. Qt 界面样式设计</h1><h2 id="1-1-控件样式设计"><a href="#1-1-控件样式设计" class="headerlink" title="1.1. 控件样式设计"></a>1.1. 控件样式设计</h2><p>改变控件的样式一般使用 setStyleSheet(“”) 函数，其可填参数如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">效果说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">“background-color: rgb(0, 0, 0);”</td>
+<td style="text-align:center">设置 件的背景色为 QColor(0,0,0)</td>
+</tr>
+<tr>
+<td style="text-align:center">“background: url(:/img/label_bg.png);”</td>
+<td style="text-align:center">用图片填充控件</td>
+</tr>
+<tr>
+<td style="text-align:center">“color: rgb(255, 255, 255);”</td>
+<td style="text-align:center">设置控件的文本颜色为 QColor(255,255,255)</td>
+</tr>
+<tr>
+<td style="text-align:center">“font: bold 16px;”</td>
+<td style="text-align:center">设置控件中的文本字体为 16 号粗体</td>
+</tr>
+<tr>
+<td style="text-align:center">“border: 2px solid rgb(66, 169, 235);”</td>
+<td style="text-align:center">设置控件的边框宽度为 2px，颜色为 QColor(66,169,235)</td>
+</tr>
+<tr>
+<td style="text-align:center">“border-radius: 4px;”</td>
+<td style="text-align:center">设置控件的边角为圆角</td>
+</tr>
+</tbody>
+</table>
+<p>以下仅对具体控件的特殊样式设计进行说明。</p>
+<h3 id="1-1-1-QLabel-样式"><a href="#1-1-1-QLabel-样式" class="headerlink" title="1.1.1. QLabel 样式"></a>1.1.1. QLabel 样式</h3><p>如果 style sheet 无法满足 QLabel 在应用的需求，可通过继承 QLabel 写自己新的 label 类。比如在 QLabel 的四个角画线，显示一种画框效果，可新建一个 MyQLabel 类，在类中重写 paintEvent(QPaintEvent *event) 函数即可。代码示例如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> MyQLabel::paintEvent(QPaintEvent *event)</div><div class="line">&#123;</div><div class="line">    QLabel::paintEvent(event);          <span class="comment">// 重要，先调用父类的 paintEvent() 为了显示原背景图像</span></div><div class="line">    <span class="keyword">int</span> width = <span class="keyword">this</span>-&gt;width();</div><div class="line">    <span class="keyword">int</span> height = <span class="keyword">this</span>-&gt;height();</div><div class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</div><div class="line">    painter.setPen(QPen(QColor(<span class="number">66</span>,<span class="number">169</span>,<span class="number">235</span>), <span class="number">3</span>));</div><div class="line"></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, <span class="number">0</span>), QPointF(width/<span class="number">8</span>, <span class="number">0</span>));           <span class="comment">// 左上角横线</span></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, <span class="number">0</span>), QPointF(<span class="number">0</span>, height/<span class="number">8</span>));          <span class="comment">// 左上角竖线</span></div><div class="line"></div><div class="line">    painter.drawLine(QPointF(width, <span class="number">0</span>), QPointF(width*<span class="number">7</span>/<span class="number">8</span>, <span class="number">0</span>));           <span class="comment">// 右上角横线</span></div><div class="line">    painter.drawLine(QPointF(width, <span class="number">0</span>), QPointF(width, height/<span class="number">8</span>));          <span class="comment">// 右上角竖线</span></div><div class="line"></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, height), QPointF(width/<span class="number">8</span>, height));           <span class="comment">// 左下角横线</span></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, height), QPointF(<span class="number">0</span>, height*<span class="number">7</span>/<span class="number">8</span>));          <span class="comment">// 左下角竖线</span></div><div class="line"></div><div class="line">    painter.drawLine(QPointF(width, height), QPointF(width*<span class="number">7</span>/<span class="number">8</span>, height));           <span class="comment">// 右下角横线</span></div><div class="line">    painter.drawLine(QPointF(width, height), QPointF(width, height*<span class="number">7</span>/<span class="number">8</span>));          <span class="comment">// 右下角竖线</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果如下（图中的照片是一张背景图）：<br><img src="./MyQLabel.png" alt="" title="QLabel 实现画框效果"></p>
+<h3 id="1-1-2-QComboBox"><a href="#1-1-2-QComboBox" class="headerlink" title="1.1.2. QComboBox"></a>1.1.2. QComboBox</h3><p>参考链接：<a href="http://www.cnblogs.com/csuftzzk/p/qss_combobox.html" title="Qt Style Sheet实践（二）：组合框QComboBox的定制" target="_blank" rel="external">Qt Style Sheet实践（二）：组合框QComboBox的定制</a></p>
+<h3 id="1-1-3-QEditLine"><a href="#1-1-3-QEditLine" class="headerlink" title="1.1.3. QEditLine"></a>1.1.3. QEditLine</h3><p>一般用 QEditLine 控件实现搜索框。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">query_button = <span class="keyword">new</span> QPushButton();</div><div class="line">query_button-&gt;setFixedWidth(<span class="number">50</span>);</div><div class="line">query_button-&gt;setCursor(Qt::PointingHandCursor);</div><div class="line">query_button-&gt;setToolTip(tr(<span class="string">"搜索"</span>));</div><div class="line"><span class="comment">// query_button-&gt;setFlat(true);            // 实现按钮透明</span></div><div class="line">query_button-&gt;setStyleSheet(<span class="string">"QPushButton&#123;background:url(:/button/button_search) center no-repeat; border: none;&#125;"</span>);</div><div class="line">query_edit = <span class="keyword">new</span> QLineEdit();</div><div class="line">query_edit-&gt;setFixedWidth(<span class="number">530</span>);</div><div class="line">query_edit-&gt;setPlaceholderText(tr(<span class="string">"请输入要搜索的id"</span>));</div><div class="line">query_edit-&gt;setStyleSheet(<span class="string">"background-color: rgb(29,33,41); color: rgb(255,255,255); height: 35px; border: 1px solid rgb(66,169,235); border-radius: 6px;"</span>);</div><div class="line">QMargins margins = query_edit-&gt;textMargins();               <span class="comment">// 设置文本与搜索框的边距，避免太靠近</span></div><div class="line">query_edit-&gt;setTextMargins(margins.left(), margins.top(), query_button-&gt;width(), margins.bottom());</div><div class="line">QHBoxLayout *query_edit_layout = <span class="keyword">new</span> QHBoxLayout();         <span class="comment">// 设置 query_edit 的布局</span></div><div class="line">query_edit_layout-&gt;addStretch();</div><div class="line">query_edit_layout-&gt;addWidget(query_button);</div><div class="line">query_edit_layout-&gt;setSpacing(<span class="number">0</span>);</div><div class="line">query_edit_layout-&gt;setContentsMargins(<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>);</div><div class="line">query_edit-&gt;setTextMargins(<span class="number">8</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">query_edit-&gt;setLayout(query_edit_layout);</div></pre></td></tr></table></figure>
+<p>效果如下：<br><img src="./SearchBox.png" alt="" title="搜索框效果"></p>
+<p>其他的样式设计可参考：<a href="http://www.cnblogs.com/csuftzzk/p/qss_lineedit_completer.html" title="Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全" target="_blank" rel="external">Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全</a></p>
+<h3 id="1-1-4-QCheckbox"><a href="#1-1-4-QCheckbox" class="headerlink" title="1.1.4. QCheckbox"></a>1.1.4. QCheckbox</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">效果说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">“QCheckBox::indicator {width: 20px; height: 20px;}”</td>
+<td style="text-align:center">设置勾选框的大小</td>
+</tr>
+<tr>
+<td style="text-align:center">“QCheckBox::indicator:unchecked {image: url(:/checkbox/unchecked);}”</td>
+<td style="text-align:center">设置勾选框未勾选时的效果</td>
+</tr>
+<tr>
+<td style="text-align:center">“QCheckBox::indicator:unchecked:hover {image: url(:/checkbox/unchecked_hover);}”</td>
+<td style="text-align:center">设置勾选框未勾选时鼠标悬浮状态下的效果</td>
+</tr>
+<tr>
+<td style="text-align:center">“QCheckBox::indicator:unchecked:pressed {image: url(:/checkbox/unchecked_press);}”</td>
+<td style="text-align:center">设置勾选框未勾选时鼠标点击状态下的效果</td>
+</tr>
+<tr>
+<td style="text-align:center">“QCheckBox::indicator:checked {image: url(:/checkbox/checked);}”</td>
+<td style="text-align:center">设置勾选框勾选时的效果</td>
+</tr>
+<tr>
+<td style="text-align:center">“QCheckBox::indicator:checked:hover {image: url(:/checkbox/checked_hover);}”</td>
+<td style="text-align:center">设置勾选框勾选时鼠标悬浮状态下的效果</td>
+</tr>
+<tr>
+<td style="text-align:center">“QCheckBox::indicator:checked:pressed {image: url(:/checkbox/checked_press);}”</td>
+<td style="text-align:center">设置勾选框勾选时鼠标点击状态下的效果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-1-5-QPushButton"><a href="#1-1-5-QPushButton" class="headerlink" title="1.1.5. QPushButton"></a>1.1.5. QPushButton</h3><p>QPushButton 的独特的样式如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">效果说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">“QPushButton{background-color: rgb(66,169,235);}”</td>
+<td style="text-align:center">设置正常状态下 QPushButton 的背景色</td>
+</tr>
+<tr>
+<td style="text-align:center">“QPushButton:hover{background-color: rgb(60,195,245);}”</td>
+<td style="text-align:center">设置鼠标悬浮状态下 QPushButton 的背景色</td>
+</tr>
+<tr>
+<td style="text-align:center">“QPushButton:pressed{background-color: rgb(9,140,188);}”</td>
+<td style="text-align:center">设置鼠标点击状态下 QPushButton 的背景色</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>以上设置背景色的方法还可以改为设置图片，方法为：将 “background-color: rgb(66,169,235)” 改为 “border-image: url(:/pushbutton_normal.png)”</p>
+</blockquote>
+<h3 id="1-1-6-QScrollBar"><a href="#1-1-6-QScrollBar" class="headerlink" title="1.1.6. QScrollBar"></a>1.1.6. QScrollBar</h3><p>设置水平滚动条：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">table_widget-&gt;horizontalScrollBar()-&gt;setStyleSheet(<span class="string">"QScrollBar:horizontal&#123;background:rgb(32,36,45); padding-top:1px; padding-bottom:1px; padding-left:20px; padding-right:20px; border:1px solid rgb(38,42,53); height: 16px;&#125;"</span>       <span class="comment">// 整体设置</span></div><div class="line">                                                        <span class="string">"QScrollBar::handle:horizontal&#123;background:rgb(47,53,66); border-radius: 6px; border: 1px solid rgb(32,36,45);&#125;"</span>        <span class="comment">// 设置滚动条</span></div><div class="line">                                                        <span class="string">"QScrollBar::hadnle:horizontal:hover&#123;background:rgb(255,255,255); border-radius: 6px; border: none;&#125;"</span>       <span class="comment">// 设置鼠标放到滚动条上的状态</span></div><div class="line">                                                        <span class="string">"QScrollBar::add-line:horizontal&#123;background:url(:/scrollbar/arrow_right) center on-repeat;&#125;"</span>        <span class="comment">// 设置右箭头</span></div><div class="line">                                                        <span class="string">"QScrollBar::sub-line:horizontal&#123;background:url(:/scrollbar/arrow_left) center no-repeat;&#125;"</span>);        <span class="comment">// 设置左箭头</span></div></pre></td></tr></table></figure>
+<p>设置垂直滚动条：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">table_widget-&gt;verticalScrollBar()-&gt;setStyleSheet(<span class="string">"QScrollBar:vertical&#123;background:rgb(32,36,45); padding-top:20px; padding-bottom:20px; padding-left:1px; padding-right:1px; border:1px solid rgb(38,42,53); width: 16px;&#125;"</span>       <span class="comment">// 整体设置</span></div><div class="line">                                                        <span class="string">"QScrollBar::handle:vertical&#123;background:rgb(47,53,66); border-radius: 6px; border: none;&#125;"</span>        <span class="comment">// 设置滚动条</span></div><div class="line">                                                        <span class="string">"QScrollBar::hadnle:vertical:hover&#123;background:rgb(255,255,255); border-radius: 6px; border: none;&#125;"</span>       <span class="comment">// 设置鼠标放到滚动条上的状态</span></div><div class="line">                                                        <span class="string">"QScrollBar::add-line:vertical&#123;background:url(:/scrollbar/arrow_down) center on-repeat;&#125;"</span>        <span class="comment">// 设置下箭头</span></div><div class="line">                                                        <span class="string">"QScrollBar::sub-line:vertical&#123;background:url(:/scrollbar/arrow_up) center no-repeat;&#125;"</span>);        <span class="comment">// 设置上箭头</span></div></pre></td></tr></table></figure>
+<p>QScrollBar 的一些样式属性说明：<br><img src="./ScrollBar-stylesheet.png" alt="" title="QScrollBar 的一些样式属性说明"></p>
+<h3 id="1-1-7-QTableWidget"><a href="#1-1-7-QTableWidget" class="headerlink" title="1.1.7. QTableWidget"></a>1.1.7. QTableWidget</h3><p>设置表格样式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">table_widget-&gt;setStyleSheet(<span class="string">"selection-background-color: rgb(0, 120, 215)"</span>);        <span class="comment">// 设置选中时的背景色</span></div><div class="line">table_widget-&gt;setStyleSheet(<span class="string">"QWidget&#123;background-color: rgb(32,37,45)&#125;"</span>          <span class="comment">// 设置普通状态下的背景色</span></div><div class="line">            <span class="string">"QTableWidget::item&#123;border-top: 1px solid rgb(38, 42, 53); border-bottom: 1px solid rgb(38, 42, 53)&#125;"</span>);          <span class="comment">// 设置表格单元格</span></div></pre></td></tr></table></figure>
+<h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2. 参考资料"></a>1.2. 参考资料</h2><ol>
+<li><a href="http://doc.qt.io/qt-4.8/stylesheet-reference.html" title="Qt 样式表的用法" target="_blank" rel="external">Qt Style Sheets Reference</a></li>
+<li><a href="http://doc.qt.io/qt-4.8/stylesheet-examples.html" title="Qt 样式表实例" target="_blank" rel="external">Qt Style Sheets Examples</a></li>
+<li><a href="http://doc.qt.io/qt-4.8/stylesheet-syntax.html" title="Qt 样式表语法" target="_blank" rel="external">The Style Sheet Syntax</a></li>
+<li><a href="http://blog.csdn.net/adriano119/article/details/7162212" title="Qt控件美化" target="_blank" rel="external">Qt控件美化</a></li>
+<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_button_menu.html" title="Qt Style Sheet实践（一）：按钮及关联菜单" target="_blank" rel="external">Qt Style Sheet实践（一）：按钮及关联菜单</a></li>
+<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_combobox.html" title="Qt Style Sheet实践（二）：组合框QComboBox的定制" target="_blank" rel="external">Qt Style Sheet实践（二）：组合框QComboBox的定制</a></li>
+<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_radiobutton_checkbox.html" title="Qt Style Sheet实践（三）：QCheckBox和QRadioButton" target="_blank" rel="external">Qt Style Sheet实践（三）：QCheckBox和QRadioButton</a></li>
+<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_lineedit_completer.html" title="Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全" target="_blank" rel="external">Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
         
-          <p>This is my first blog using NexT themes.<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/24/随笔-my-first-blog/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://lchy1037.github.io/2017/05/24/随笔-hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ChaoyangLuan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar/github_0.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/24/随笔-hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T11:31:39+08:00">
-                2017-05-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/C/" rel="tag"># C++</a>
           
-
+            <a href="/tags/Qt/" rel="tag"># Qt</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/24/随笔-hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/05/24/随笔-hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
+            <a href="/tags/界面样式/" rel="tag"># 界面样式</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">hexo</a>! Qucik Start.<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/24/随笔-hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/24/随笔-my-first-blog/" rel="next" title="my-first-blog">
+                <i class="fa fa-chevron-left"></i> my-first-blog
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -768,6 +670,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -787,8 +700,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar/github_0.jpg"
@@ -931,6 +853,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Qt-界面样式设计"><span class="nav-text">1. Qt 界面样式设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-控件样式设计"><span class="nav-text">1.1. 控件样式设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-QLabel-样式"><span class="nav-text">1.1.1. QLabel 样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-QComboBox"><span class="nav-text">1.1.2. QComboBox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-QEditLine"><span class="nav-text">1.1.3. QEditLine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-4-QCheckbox"><span class="nav-text">1.1.4. QCheckbox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-5-QPushButton"><span class="nav-text">1.1.5. QPushButton</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-6-QScrollBar"><span class="nav-text">1.1.6. QScrollBar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-7-QTableWidget"><span class="nav-text">1.1.7. QTableWidget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-参考资料"><span class="nav-text">1.2. 参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -1069,6 +1007,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
@@ -1086,6 +1028,18 @@
       <script id="dsq-count-scr" src="https://chaoyangluan.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/';
+          this.page.identifier = '2017/07/06/C-Qt-界面样式设计/';
+          this.page.title = 'Qt 界面样式设计';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chaoyangluan.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
