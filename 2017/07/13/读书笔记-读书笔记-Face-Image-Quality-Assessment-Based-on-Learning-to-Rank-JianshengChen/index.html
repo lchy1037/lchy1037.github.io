@@ -99,7 +99,10 @@
 <meta property="og:description" content="记录阅读 Jiansheng Chen 的论文 “Face Image Quality Assessment Based on Learning to Rank” 的感想。">
 <meta property="og:image" content="http://lchy1037.github.io/2017/07/13/读书笔记-读书笔记-Face-Image-Quality-Assessment-Based-on-Learning-to-Rank-JianshengChen/Fig.1.png">
 <meta property="og:image" content="http://lchy1037.github.io/2017/07/13/读书笔记-读书笔记-Face-Image-Quality-Assessment-Based-on-Learning-to-Rank-JianshengChen/Fig.2.png">
-<meta property="og:updated_time" content="2017-07-13T13:36:40.451Z">
+<meta property="og:image" content="http://lchy1037.github.io/2017/07/13/读书笔记-读书笔记-Face-Image-Quality-Assessment-Based-on-Learning-to-Rank-JianshengChen/公式6.png">
+<meta property="og:image" content="http://lchy1037.github.io/2017/07/13/读书笔记-读书笔记-Face-Image-Quality-Assessment-Based-on-Learning-to-Rank-JianshengChen/Fig.3.png">
+<meta property="og:image" content="http://lchy1037.github.io/2017/07/13/读书笔记-读书笔记-Face-Image-Quality-Assessment-Based-on-Learning-to-Rank-JianshengChen/Fig.6.png">
+<meta property="og:updated_time" content="2017-07-14T02:15:09.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读书笔记-Face Image Quality Assessment Based on Learning to Rank(by Jiansheng Chen)">
 <meta name="twitter:description" content="记录阅读 Jiansheng Chen 的论文 “Face Image Quality Assessment Based on Learning to Rank” 的感想。">
@@ -439,7 +442,10 @@
 <p>$$\omega^{T}f(I_i) &gt; \omega^{T}f(I_j);\quad \forall{I_i}\in{A},\;\forall{I_j}\in{B}$$(2)<br>$$\omega^{T}f(I_i) = \omega^{T}f(I_j);\quad \forall{I_i}\in{A},\;\forall{I_j}\in{A}$$(3)<br>$$\omega^{T}f(I_i) = \omega^{T}f(I_j);\quad \forall{I_i}\in{B},\;\forall{I_j}\in{B}$$(4)</p>
 <p>上述问题规划与文献 [23] 中的相同，因此可以转化为一个凸规划问题（见公式(5)），通过引入非负松弛变量 ${\lambda_1},\,{\lambda_2},\,{\lambda_3}$ 来平衡相关约束，由公式 (5) 定义的优化问题可以用 Newton 方法有效的解决。</p>
 <p>$$minmize(|{\omega^T}|_2^2 + {\lambda<em>1}{\sum{\xi</em>{ij}^2}} + {\lambda<em>2}{\sum{\eta</em>{ij}^2}} + {\lambda<em>3}{\sum{\gamma</em>{ij}^2}})$$<br>$$s.t.\quad {\omega^T(f(I_i)-f(I<em>j))}\geq{1-\xi</em>{ij}};\quad{\forall{I_i}\in{A},\,{\forall{I_j}\in{B}}}$$<br>$${|\omega^T(f(I_i)-f(I<em>j))|}\leq{\eta</em>{ij}},\quad{\forall{I_i}\in{A},\,{\forall{I_j}\in{A}}}$$<br>$${|\omega^T(f(I_i)-f(I<em>j))|}\leq{\gamma</em>{ij}},\quad{\forall{I_i}\in{B},\,{\forall{I<em>j}\in{A}}}$$<br>$${\xi</em>{ij}}\geq{0},\quad {\eta<em>{ij}}\geq{0},\quad {\gamma</em>{ij}}\geq{0}$$(5)</p>
-<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4. 实验"></a>4. 实验</h2><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1>
+<p>本文提出的公式可以扩展至多数据集、多特征。对于多特征融合，采用两层学习策略。假设从图像 $I$ 中提取了 $m$ 个不同的特征，设与第 $i$ 个特征相关的质量评价函数为 $S_i(I)={\omega^T}f_i(I),\;{(i=1,2,\cdots,m)}$。在第一层学习中，所有的排序权重 $\omega_i$  通过公式(5)学习到，设 $\vec{S_v} = {[{S_1(I)};{S_2(I)}\;\cdots\;{S_m(I)}]}^T$ 为包含第一层学习张由图像 $I$ 所有特征得到的 $RQS$ 的列向量。定义第二层质量评估函数为 ${S_k(I)} = {\omega<em>k}{f</em>{\Phi}(\vec{S<em>v})}$，其中 $f</em>{\Phi}()$ 为多项式核函数。本文中 $m=5$ 并且多项式核函数为二阶多项式核函数。$f_{\Phi}(\vec{S_v})$ 的表达式为公式(6)。<br><img src="./公式6.png" alt=""></p>
+<p>$\omega_k$ 的值可以通过二次训练得到，$S_k(I)$ 的值归一化到 $0~100$ 之间，并用来图像 $I$ 的最终得分。Fig.3 展示了计算 Fig.1(d) 的 $RQS$ 的计算过程。<br><img src="./Fig.3.png" alt=""></p>
+<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4. 实验"></a>4. 实验</h2><p>本文实验结果展示如图Fig.6。<br><img src="./Fig.6.png" alt=""></p>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1>
       
     </div>
 
@@ -730,7 +736,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#摘要"><span class="nav-text">摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-介绍"><span class="nav-text">1. 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-人脸标准化"><span class="nav-text">2. 人脸标准化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-人脸质量评价"><span class="nav-text">3. 人脸质量评价</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验"><span class="nav-text">4. 实验</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#摘要"><span class="nav-text">摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-介绍"><span class="nav-text">1. 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-人脸标准化"><span class="nav-text">2. 人脸标准化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-人脸质量评价"><span class="nav-text">3. 人脸质量评价</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验"><span class="nav-text">4. 实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-text">5. 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
