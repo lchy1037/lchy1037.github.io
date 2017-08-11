@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C++,Qt,界面样式," />
+  <meta name="keywords" content="C++,STL," />
 
 
 
@@ -90,21 +90,17 @@
 
 
 
-<meta name="description" content="Qt 开发中有两种方法来进行 UI 定制：Qt 二维绘图 (Qt 2D drawing and painting) 以及 Qt 样式表 (Qt Style Sheet)，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 Qt 样式表 (Qt Style Sheet)，对使用 Qt 设计界面和控件样式的一些方法进行总结（建议用 QSS 写界面）。">
-<meta name="keywords" content="C++,Qt,界面样式">
+<meta name="description" content="STL笔记之heap">
+<meta name="keywords" content="C++,STL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Qt 界面样式设计">
-<meta property="og:url" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/index.html">
+<meta property="og:title" content="STL笔记之heap">
+<meta property="og:url" content="http://lchy1037.github.io/2017/08/11/C-STL笔记之heap/index.html">
 <meta property="og:site_name" content="个人笔记">
-<meta property="og:description" content="Qt 开发中有两种方法来进行 UI 定制：Qt 二维绘图 (Qt 2D drawing and painting) 以及 Qt 样式表 (Qt Style Sheet)，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 Qt 样式表 (Qt Style Sheet)，对使用 Qt 设计界面和控件样式的一些方法进行总结（建议用 QSS 写界面）。">
-<meta property="og:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/MyQLabel.png">
-<meta property="og:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/SearchBox.png">
-<meta property="og:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/ScrollBar-stylesheet.png">
-<meta property="og:updated_time" content="2017-07-11T02:49:44.920Z">
+<meta property="og:description" content="STL笔记之heap">
+<meta property="og:updated_time" content="2017-08-11T08:31:41.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Qt 界面样式设计">
-<meta name="twitter:description" content="Qt 开发中有两种方法来进行 UI 定制：Qt 二维绘图 (Qt 2D drawing and painting) 以及 Qt 样式表 (Qt Style Sheet)，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 Qt 样式表 (Qt Style Sheet)，对使用 Qt 设计界面和控件样式的一些方法进行总结（建议用 QSS 写界面）。">
-<meta name="twitter:image" content="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/MyQLabel.png">
+<meta name="twitter:title" content="STL笔记之heap">
+<meta name="twitter:description" content="STL笔记之heap">
 
 
 
@@ -132,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/"/>
+  <link rel="canonical" href="http://lchy1037.github.io/2017/08/11/C-STL笔记之heap/"/>
 
 
 
 
 
-  <title>Qt 界面样式设计 | 个人笔记</title>
+  <title>STL笔记之heap | 个人笔记</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -324,7 +320,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/">
+    <link itemprop="mainEntityOfPage" href="http://lchy1037.github.io/2017/08/11/C-STL笔记之heap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ChaoyangLuan">
@@ -341,7 +337,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Qt 界面样式设计</h1>
+          <h1 class="post-title" itemprop="name headline">STL笔记之heap</h1>
         
 
         <div class="post-meta">
@@ -353,8 +349,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T19:20:52+08:00">
-                2017-07-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-11T16:22:00+08:00">
+                2017-08-11
               </time>
             
 
@@ -394,9 +390,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/06/C-Qt-界面样式设计/#comments" itemprop="discussionUrl">
+                <a href="/2017/08/11/C-STL笔记之heap/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/06/C-Qt-界面样式设计/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/08/11/C-STL笔记之heap/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -426,149 +422,56 @@
       
 
       
-        <p>Qt 开发中有两种方法来进行 UI 定制：<strong>Qt 二维绘图 (Qt 2D drawing and painting)</strong> 以及 <strong>Qt 样式表 (Qt Style Sheet)</strong>，通常这两种方法需要结合一起使用，以发挥其强大的作用。这里主要针对 <strong>Qt 样式表 (Qt Style Sheet)</strong>，对使用 <code>Qt</code> 设计界面和控件样式的一些方法进行总结（建议用 <code>QSS</code> 写界面）。<br><a id="more"></a><br><!-- TOC --></p>
+        <p>STL笔记之heap<br><a id="more"></a></p>
+<!-- TOC -->
 <ul>
-<li><a href="#1-qt-界面样式设计">1. Qt 界面样式设计</a><ul>
-<li><a href="#11-控件样式设计">1.1. 控件样式设计</a><ul>
-<li><a href="#111-qlabel-样式">1.1.1. QLabel 样式</a></li>
-<li><a href="#112-qcombobox">1.1.2. QComboBox</a></li>
-<li><a href="#113-qeditline">1.1.3. QEditLine</a></li>
-<li><a href="#114-qcheckbox">1.1.4. QCheckbox</a></li>
-<li><a href="#115-qpushbutton">1.1.5. QPushButton</a></li>
-<li><a href="#116-qscrollbar">1.1.6. QScrollBar</a></li>
-<li><a href="#117-qtablewidget">1.1.7. QTableWidget</a></li>
-</ul>
-</li>
-<li><a href="#12-参考资料">1.2. 参考资料</a></li>
+<li><a href="#1-stl笔记之heap">1. STL笔记之heap</a><ul>
+<li><a href="#11-简介">1.1. 简介</a></li>
+<li><a href="#12-相关算法的使用">1.2. 相关算法的使用</a></li>
 </ul>
 </li>
 </ul>
 <!-- /TOC -->
-<h1 id="1-Qt-界面样式设计"><a href="#1-Qt-界面样式设计" class="headerlink" title="1. Qt 界面样式设计"></a>1. Qt 界面样式设计</h1><h2 id="1-1-控件样式设计"><a href="#1-1-控件样式设计" class="headerlink" title="1.1. 控件样式设计"></a>1.1. 控件样式设计</h2><p>改变控件的样式一般使用 setStyleSheet(“”) 函数，其可填参数如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">效果说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">“background-color: rgb(0, 0, 0);”</td>
-<td style="text-align:center">设置 件的背景色为 QColor(0,0,0)</td>
-</tr>
-<tr>
-<td style="text-align:center">“background: url(:/img/label_bg.png);”</td>
-<td style="text-align:center">用图片填充控件</td>
-</tr>
-<tr>
-<td style="text-align:center">“color: rgb(255, 255, 255);”</td>
-<td style="text-align:center">设置控件的文本颜色为 QColor(255,255,255)</td>
-</tr>
-<tr>
-<td style="text-align:center">“font: bold 16px;”</td>
-<td style="text-align:center">设置控件中的文本字体为 16 号粗体</td>
-</tr>
-<tr>
-<td style="text-align:center">“border: 2px solid rgb(66, 169, 235);”</td>
-<td style="text-align:center">设置控件的边框宽度为 2px，颜色为 QColor(66,169,235)</td>
-</tr>
-<tr>
-<td style="text-align:center">“border-radius: 4px;”</td>
-<td style="text-align:center">设置控件的边角为圆角</td>
-</tr>
-</tbody>
-</table>
-<p>以下仅对具体控件的特殊样式设计进行说明。</p>
-<h3 id="1-1-1-QLabel-样式"><a href="#1-1-1-QLabel-样式" class="headerlink" title="1.1.1. QLabel 样式"></a>1.1.1. QLabel 样式</h3><p>如果 style sheet 无法满足 QLabel 在应用的需求，可通过继承 QLabel 写自己新的 label 类。比如在 QLabel 的四个角画线，显示一种画框效果，可新建一个 MyQLabel 类，在类中重写 paintEvent(QPaintEvent *event) 函数即可。代码示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> MyQLabel::paintEvent(QPaintEvent *event)</div><div class="line">&#123;</div><div class="line">    QLabel::paintEvent(event);          <span class="comment">// 重要，先调用父类的 paintEvent() 为了显示原背景图像</span></div><div class="line">    <span class="keyword">int</span> width = <span class="keyword">this</span>-&gt;width();</div><div class="line">    <span class="keyword">int</span> height = <span class="keyword">this</span>-&gt;height();</div><div class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</div><div class="line">    painter.setPen(QPen(QColor(<span class="number">66</span>,<span class="number">169</span>,<span class="number">235</span>), <span class="number">3</span>));</div><div class="line"></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, <span class="number">0</span>), QPointF(width/<span class="number">8</span>, <span class="number">0</span>));           <span class="comment">// 左上角横线</span></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, <span class="number">0</span>), QPointF(<span class="number">0</span>, height/<span class="number">8</span>));          <span class="comment">// 左上角竖线</span></div><div class="line"></div><div class="line">    painter.drawLine(QPointF(width, <span class="number">0</span>), QPointF(width*<span class="number">7</span>/<span class="number">8</span>, <span class="number">0</span>));           <span class="comment">// 右上角横线</span></div><div class="line">    painter.drawLine(QPointF(width, <span class="number">0</span>), QPointF(width, height/<span class="number">8</span>));          <span class="comment">// 右上角竖线</span></div><div class="line"></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, height), QPointF(width/<span class="number">8</span>, height));           <span class="comment">// 左下角横线</span></div><div class="line">    painter.drawLine(QPointF(<span class="number">0</span>, height), QPointF(<span class="number">0</span>, height*<span class="number">7</span>/<span class="number">8</span>));          <span class="comment">// 左下角竖线</span></div><div class="line"></div><div class="line">    painter.drawLine(QPointF(width, height), QPointF(width*<span class="number">7</span>/<span class="number">8</span>, height));           <span class="comment">// 右下角横线</span></div><div class="line">    painter.drawLine(QPointF(width, height), QPointF(width, height*<span class="number">7</span>/<span class="number">8</span>));          <span class="comment">// 右下角竖线</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>效果如下（图中的照片是一张背景图）：<br><img src="./MyQLabel.png" alt="" title="QLabel 实现画框效果"></p>
-<h3 id="1-1-2-QComboBox"><a href="#1-1-2-QComboBox" class="headerlink" title="1.1.2. QComboBox"></a>1.1.2. QComboBox</h3><p>参考链接：<a href="http://www.cnblogs.com/csuftzzk/p/qss_combobox.html" title="Qt Style Sheet实践（二）：组合框QComboBox的定制" target="_blank" rel="external">Qt Style Sheet实践（二）：组合框QComboBox的定制</a></p>
-<h3 id="1-1-3-QEditLine"><a href="#1-1-3-QEditLine" class="headerlink" title="1.1.3. QEditLine"></a>1.1.3. QEditLine</h3><p>一般用 QEditLine 控件实现搜索框。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">query_button = <span class="keyword">new</span> QPushButton();</div><div class="line">query_button-&gt;setFixedWidth(<span class="number">50</span>);</div><div class="line">query_button-&gt;setCursor(Qt::PointingHandCursor);</div><div class="line">query_button-&gt;setToolTip(tr(<span class="string">"搜索"</span>));</div><div class="line"><span class="comment">// query_button-&gt;setFlat(true);            // 实现按钮透明</span></div><div class="line">query_button-&gt;setStyleSheet(<span class="string">"QPushButton&#123;background:url(:/button/button_search) center no-repeat; border: none;&#125;"</span>);</div><div class="line">query_edit = <span class="keyword">new</span> QLineEdit();</div><div class="line">query_edit-&gt;setFixedWidth(<span class="number">530</span>);</div><div class="line">query_edit-&gt;setPlaceholderText(tr(<span class="string">"请输入要搜索的id"</span>));</div><div class="line">query_edit-&gt;setStyleSheet(<span class="string">"background-color: rgb(29,33,41); color: rgb(255,255,255); height: 35px; border: 1px solid rgb(66,169,235); border-radius: 6px;"</span>);</div><div class="line">QMargins margins = query_edit-&gt;textMargins();               <span class="comment">// 设置文本与搜索框的边距，避免太靠近</span></div><div class="line">query_edit-&gt;setTextMargins(margins.left(), margins.top(), query_button-&gt;width(), margins.bottom());</div><div class="line">QHBoxLayout *query_edit_layout = <span class="keyword">new</span> QHBoxLayout();         <span class="comment">// 设置 query_edit 的布局</span></div><div class="line">query_edit_layout-&gt;addStretch();</div><div class="line">query_edit_layout-&gt;addWidget(query_button);</div><div class="line">query_edit_layout-&gt;setSpacing(<span class="number">0</span>);</div><div class="line">query_edit_layout-&gt;setContentsMargins(<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>);</div><div class="line">query_edit-&gt;setTextMargins(<span class="number">8</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">query_edit-&gt;setLayout(query_edit_layout);</div></pre></td></tr></table></figure>
-<p>效果如下：<br><img src="./SearchBox.png" alt="" title="搜索框效果"></p>
-<p>其他的样式设计可参考：<a href="http://www.cnblogs.com/csuftzzk/p/qss_lineedit_completer.html" title="Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全" target="_blank" rel="external">Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全</a></p>
-<h3 id="1-1-4-QCheckbox"><a href="#1-1-4-QCheckbox" class="headerlink" title="1.1.4. QCheckbox"></a>1.1.4. QCheckbox</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">效果说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">“QCheckBox::indicator {width: 20px; height: 20px;}”</td>
-<td style="text-align:center">设置勾选框的大小</td>
-</tr>
-<tr>
-<td style="text-align:center">“QCheckBox::indicator:unchecked {image: url(:/checkbox/unchecked);}”</td>
-<td style="text-align:center">设置勾选框未勾选时的效果</td>
-</tr>
-<tr>
-<td style="text-align:center">“QCheckBox::indicator:unchecked:hover {image: url(:/checkbox/unchecked_hover);}”</td>
-<td style="text-align:center">设置勾选框未勾选时鼠标悬浮状态下的效果</td>
-</tr>
-<tr>
-<td style="text-align:center">“QCheckBox::indicator:unchecked:pressed {image: url(:/checkbox/unchecked_press);}”</td>
-<td style="text-align:center">设置勾选框未勾选时鼠标点击状态下的效果</td>
-</tr>
-<tr>
-<td style="text-align:center">“QCheckBox::indicator:checked {image: url(:/checkbox/checked);}”</td>
-<td style="text-align:center">设置勾选框勾选时的效果</td>
-</tr>
-<tr>
-<td style="text-align:center">“QCheckBox::indicator:checked:hover {image: url(:/checkbox/checked_hover);}”</td>
-<td style="text-align:center">设置勾选框勾选时鼠标悬浮状态下的效果</td>
-</tr>
-<tr>
-<td style="text-align:center">“QCheckBox::indicator:checked:pressed {image: url(:/checkbox/checked_press);}”</td>
-<td style="text-align:center">设置勾选框勾选时鼠标点击状态下的效果</td>
-</tr>
-</tbody>
-</table>
-<h3 id="1-1-5-QPushButton"><a href="#1-1-5-QPushButton" class="headerlink" title="1.1.5. QPushButton"></a>1.1.5. QPushButton</h3><p>QPushButton 的独特的样式如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">效果说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">“QPushButton{background-color: rgb(66,169,235);}”</td>
-<td style="text-align:center">设置正常状态下 QPushButton 的背景色</td>
-</tr>
-<tr>
-<td style="text-align:center">“QPushButton:hover{background-color: rgb(60,195,245);}”</td>
-<td style="text-align:center">设置鼠标悬浮状态下 QPushButton 的背景色</td>
-</tr>
-<tr>
-<td style="text-align:center">“QPushButton:pressed{background-color: rgb(9,140,188);}”</td>
-<td style="text-align:center">设置鼠标点击状态下 QPushButton 的背景色</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>以上设置背景色的方法还可以改为设置图片，方法为：将 “background-color: rgb(66,169,235)” 改为 “border-image: url(:/pushbutton_normal.png)”</p>
-</blockquote>
-<h3 id="1-1-6-QScrollBar"><a href="#1-1-6-QScrollBar" class="headerlink" title="1.1.6. QScrollBar"></a>1.1.6. QScrollBar</h3><p>设置水平滚动条：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">table_widget-&gt;horizontalScrollBar()-&gt;setStyleSheet(<span class="string">"QScrollBar:horizontal&#123;background:rgb(32,36,45); padding-top:1px; padding-bottom:1px; padding-left:20px; padding-right:20px; border:1px solid rgb(38,42,53); height: 16px;&#125;"</span>       <span class="comment">// 整体设置</span></div><div class="line">                                                        <span class="string">"QScrollBar::handle:horizontal&#123;background:rgb(47,53,66); border-radius: 6px; border: 1px solid rgb(32,36,45);&#125;"</span>        <span class="comment">// 设置滚动条</span></div><div class="line">                                                        <span class="string">"QScrollBar::hadnle:horizontal:hover&#123;background:rgb(255,255,255); border-radius: 6px; border: none;&#125;"</span>       <span class="comment">// 设置鼠标放到滚动条上的状态</span></div><div class="line">                                                        <span class="string">"QScrollBar::add-line:horizontal&#123;background:url(:/scrollbar/arrow_right) center on-repeat;&#125;"</span>        <span class="comment">// 设置右箭头</span></div><div class="line">                                                        <span class="string">"QScrollBar::sub-line:horizontal&#123;background:url(:/scrollbar/arrow_left) center no-repeat;&#125;"</span>);        <span class="comment">// 设置左箭头</span></div></pre></td></tr></table></figure>
-<p>设置垂直滚动条：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">table_widget-&gt;verticalScrollBar()-&gt;setStyleSheet(<span class="string">"QScrollBar:vertical&#123;background:rgb(32,36,45); padding-top:20px; padding-bottom:20px; padding-left:1px; padding-right:1px; border:1px solid rgb(38,42,53); width: 16px;&#125;"</span>       <span class="comment">// 整体设置</span></div><div class="line">                                                        <span class="string">"QScrollBar::handle:vertical&#123;background:rgb(47,53,66); border-radius: 6px; border: none;&#125;"</span>        <span class="comment">// 设置滚动条</span></div><div class="line">                                                        <span class="string">"QScrollBar::hadnle:vertical:hover&#123;background:rgb(255,255,255); border-radius: 6px; border: none;&#125;"</span>       <span class="comment">// 设置鼠标放到滚动条上的状态</span></div><div class="line">                                                        <span class="string">"QScrollBar::add-line:vertical&#123;background:url(:/scrollbar/arrow_down) center on-repeat;&#125;"</span>        <span class="comment">// 设置下箭头</span></div><div class="line">                                                        <span class="string">"QScrollBar::sub-line:vertical&#123;background:url(:/scrollbar/arrow_up) center no-repeat;&#125;"</span>);        <span class="comment">// 设置上箭头</span></div></pre></td></tr></table></figure>
-<p>QScrollBar 的一些样式属性说明：<br><img src="./ScrollBar-stylesheet.png" alt="" title="QScrollBar 的一些样式属性说明"></p>
-<h3 id="1-1-7-QTableWidget"><a href="#1-1-7-QTableWidget" class="headerlink" title="1.1.7. QTableWidget"></a>1.1.7. QTableWidget</h3><p>设置表格样式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">table_widget-&gt;setStyleSheet(<span class="string">"selection-background-color: rgb(0, 120, 215)"</span>);        <span class="comment">// 设置选中时的背景色</span></div><div class="line">table_widget-&gt;setStyleSheet(<span class="string">"QWidget&#123;background-color: rgb(32,37,45)&#125;"</span>          <span class="comment">// 设置普通状态下的背景色</span></div><div class="line">            <span class="string">"QTableWidget::item&#123;border-top: 1px solid rgb(38, 42, 53); border-bottom: 1px solid rgb(38, 42, 53)&#125;"</span>);          <span class="comment">// 设置表格单元格</span></div></pre></td></tr></table></figure>
-<h2 id="1-2-参考资料"><a href="#1-2-参考资料" class="headerlink" title="1.2. 参考资料"></a>1.2. 参考资料</h2><ol>
-<li><a href="http://doc.qt.io/qt-4.8/stylesheet-reference.html" title="Qt 样式表的用法" target="_blank" rel="external">Qt Style Sheets Reference</a></li>
-<li><a href="http://doc.qt.io/qt-4.8/stylesheet-examples.html" title="Qt 样式表实例" target="_blank" rel="external">Qt Style Sheets Examples</a></li>
-<li><a href="http://doc.qt.io/qt-4.8/stylesheet-syntax.html" title="Qt 样式表语法" target="_blank" rel="external">The Style Sheet Syntax</a></li>
-<li><a href="http://blog.csdn.net/adriano119/article/details/7162212" title="Qt控件美化" target="_blank" rel="external">Qt控件美化</a></li>
-<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_button_menu.html" title="Qt Style Sheet实践（一）：按钮及关联菜单" target="_blank" rel="external">Qt Style Sheet实践（一）：按钮及关联菜单</a></li>
-<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_combobox.html" title="Qt Style Sheet实践（二）：组合框QComboBox的定制" target="_blank" rel="external">Qt Style Sheet实践（二）：组合框QComboBox的定制</a></li>
-<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_radiobutton_checkbox.html" title="Qt Style Sheet实践（三）：QCheckBox和QRadioButton" target="_blank" rel="external">Qt Style Sheet实践（三）：QCheckBox和QRadioButton</a></li>
-<li><a href="http://www.cnblogs.com/csuftzzk/p/qss_lineedit_completer.html" title="Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全" target="_blank" rel="external">Qt Style Sheet实践（四）：行文本编辑框QLineEdit及自动补全</a></li>
-</ol>
+<h1 id="1-STL笔记之heap"><a href="#1-STL笔记之heap" class="headerlink" title="1. STL笔记之heap"></a>1. STL笔记之heap</h1><h2 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1. 简介"></a>1.1. 简介</h2><p>heap（堆）是一种比较复杂的数据结构。不过 STL 已经封装了 heap 的一些操作，比如：创建堆、判断堆、插入一个元素、删除一个元素、以及堆排序。在 STL 中，heap 是以算法的形式提供的，包括下面几个函数：</p>
+<ul>
+<li><code>make_heap()</code>：根据指定的迭代器区间以及一个可选的比较函数（通常为 <code>greater&lt;T&gt;()</code> 或者 <code>less&lt;T&gt;()</code>，其中 T 为一种数据类型），来创建一个 heap，时间复杂度为 O(n)；</li>
+<li><code>push_heap()</code>：把指定区间的最后一个元素插入到 heap 中，时间复杂度为 O(logn)；</li>
+<li><code>pop_heap()</code>：弹出 heap 顶元素，将其放置于区间末尾，时间复杂度 O(logn)；</li>
+<li><code>sort_heap()</code>：堆排序算法，将指定区间的元素进行堆排序，时间复杂度为 O(nlogn)。</li>
+</ul>
+<p>C++11 加入了两个新成员：</p>
+<ul>
+<li><code>is_heap()</code>：判断给定区间是否是一个 heap，时间复杂度为 O(n)；</li>
+<li><code>is_heap_until()</code>：找出区间中第一个不满足 heap 条件的元素，返回指向该元素的指针。时间复杂度为 O(n)。</li>
+</ul>
+<p>因为 heap 都是以算法的形式提供，所以使用这几个函数需要包含如下头文件：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div></pre></td></tr></table></figure></p>
+<h2 id="1-2-相关算法的使用"><a href="#1-2-相关算法的使用" class="headerlink" title="1.2. 相关算法的使用"></a>1.2. 相关算法的使用</h2><p>使用数组来存储一个堆，也就是堆化数组：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> arr[] = &#123;<span class="number">2</span>, <span class="number">14</span>, <span class="number">4</span>, <span class="number">16</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec(arr, arr + <span class="keyword">sizeof</span>(arr)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</div><div class="line"><span class="comment">// vector&lt;int&gt; vec&#123;2, 14, 4, 16, 6, 5, 3&#125;;</span></div></pre></td></tr></table></figure></p>
+<p>注：下述函数的使用都是代码片段，且使用的比较函数都是 <code>greater&lt;T&gt;()</code>，即小根堆，默认的是 <code>less&lt;T&gt;()</code>，即大根堆。完整代码在本文最后。</p>
+<p><strong>1</strong>. <code>is_heap()</code>：判断堆</p>
+<p>原型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="keyword">typename</span> RandomIt &gt;</div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">is_heap</span><span class="params">( RandomIt first, RandomIt last )</span></span>;</div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="keyword">typename</span> RandomIt, <span class="keyword">typename</span> Compare &gt;</div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">is_heap</span><span class="params">( RandomIt first, RandomIt last, Compare comp )</span></span>;</div></pre></td></tr></table></figure></p>
+<p>用法示例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cout</span> &lt;&lt; is_heap(vec.begin(), vec.end()) &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure></p>
+<p><strong>2</strong>. <code>is_heap_until()</code>：找出区间中第一个不满足 heap 条件的元素，返回指向该元素的指针。</p>
+<p>原型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// (1)	(since C++11)</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span> &gt;</span></div><div class="line"><span class="title">RandomIt</span> <span class="title">is_heap_until</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span> );</div><div class="line"></div><div class="line"><span class="comment">// (2)	(since C++11)</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span>, <span class="title">class</span> <span class="title">Compare</span> &gt;</span></div><div class="line"><span class="title">RandomIt</span> <span class="title">is_heap_until</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span>, <span class="title">Compare</span> <span class="title">comp</span> );</div></pre></td></tr></table></figure></p>
+<p>用法示例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator iter = is_heap_until(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"is heap until: "</span> &lt;&lt; *iter &lt;&lt; <span class="built_in">endl</span>;</div></pre></td></tr></table></figure></p>
+<p><strong>3</strong>. <code>make_heap()</code>：构造堆</p>
+<p>STL 中的通过 <code>make_heap()</code> 创建的堆，默认是大根堆（max heap）。要改变堆的建立准则，可以自己制定一个比较函数，比如如下第二个版本的第三个参数。第三个参数可填：<code>less&lt;int&gt;()</code> 构造大根堆，<code>greater&lt;int&gt;()</code> 构造小根堆。（注意：要使用其中一个比较函数，在该堆上使用的其他算法也要使用该比较函数）</p>
+<p>原型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">make_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span> );</div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span>, <span class="title">class</span> <span class="title">Compare</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">make_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span>, <span class="title">Compare</span> <span class="title">comp</span> );</div></pre></td></tr></table></figure></p>
+<p>用法示例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div></pre></td></tr></table></figure></p>
+<p><strong>4</strong>. <code>push_heap()</code>：插入元素</p>
+<p>如果要在堆中插入一个元素，首先要往容器 vector 尾部插入一个元素，然后把新的迭代区间传给 push_heap()，这样新的元素也被插入到堆中。时间复杂度为 O(logn)。</p>
+<p>原型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">push_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span> );</div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span>, <span class="title">class</span> <span class="title">Compare</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">push_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span>, <span class="title">Compare</span> <span class="title">comp</span> );</div></pre></td></tr></table></figure></p>
+<p>用法示例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vec.push_back(<span class="number">20</span>);</div><div class="line">push_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div></pre></td></tr></table></figure></p>
+<p><strong>5</strong>. <code>pop_heap()</code>：弹出元素</p>
+<p>弹出的元素默认是根节点的元素。这个算法的作用是交换根结点元素与堆中的最后一个元素，然后把除了尾部元素的剩余区间重新调整成堆。注意，<code>pop_heap()</code> 函数并没有真正的删除元素，最后要使用容器的 <code>pop_back()</code> 来删除元素。</p>
+<p>原型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1	</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">pop_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span> );</div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span>, <span class="title">class</span> <span class="title">Compare</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">pop_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span>, <span class="title">Compare</span> <span class="title">comp</span> );</div><div class="line"></div><div class="line"><span class="comment">// Swaps the value in the position first and the value in the position last-1 and makes the subrange [first, last-1) into a max heap. </span></div><div class="line"><span class="comment">// This has the effect of removing the first (largest) element from the heap defined by the range [first, last).</span></div></pre></td></tr></table></figure></p>
+<p>用法示例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pop_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div><div class="line">vec.pop_back();</div></pre></td></tr></table></figure></p>
+<p><strong>6</strong>. <code>sort_heap()</code>：堆排序</p>
+<p>该算法实现经典的堆排序算法，通过每次弹出堆顶元素直到堆为空，依次被弹出的元素就组成了有序的序列。STL 中的 <code>priority_queue</code> 既是用 heap 的这个特性来实现的。</p>
+<p>注意：使用 <code>sort_heap()</code> 时要确保区间已经是一个堆了，处理过后的区间因为有序，就不再是一个 heap 了。</p>
+<p>原型：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">sort_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span> );</div><div class="line"></div><div class="line"><span class="comment">// 2</span></div><div class="line"><span class="keyword">template</span>&lt; <span class="class"><span class="keyword">class</span> <span class="title">RandomIt</span>, <span class="title">class</span> <span class="title">Compare</span> &gt;</span></div><div class="line"><span class="title">void</span> <span class="title">sort_heap</span>( <span class="title">RandomIt</span> <span class="title">first</span>, <span class="title">RandomIt</span> <span class="title">last</span>, <span class="title">Compare</span> <span class="title">comp</span> );</div></pre></td></tr></table></figure></p>
+<p>用法示例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sort_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div></pre></td></tr></table></figure></p>
+<p><strong>7</strong>. 完整代码示例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div><div class="line">ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; out, <span class="built_in">vector</span>&lt;T&gt;&amp; vec)&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vec.size(); ++i)&#123;</div><div class="line">        out &lt;&lt; vec[i] &lt;&lt; <span class="string">' '</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> out;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// int arr[] = &#123;2, 14, 4, 16, 6, 5, 3&#125;;</span></div><div class="line">    <span class="comment">// vector&lt;int&gt; vec(arr, arr + sizeof(arr)/sizeof(int));</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec&#123;<span class="number">2</span>, <span class="number">14</span>, <span class="number">4</span>, <span class="number">16</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">3</span>&#125;;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"is heap: "</span> &lt;&lt; is_heap(vec.begin(), vec.end()) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    make_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"make heap: "</span> &lt;&lt; vec &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    vec.push_back(<span class="number">20</span>);</div><div class="line">    push_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"push heap: "</span> &lt;&lt; vec &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    pop_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div><div class="line">    vec.pop_back();</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"pop heap: "</span> &lt;&lt; vec &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    sort_heap(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"sort heap: "</span> &lt;&lt; vec &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator iter = is_heap_until(vec.begin(), vec.end(), greater&lt;<span class="keyword">int</span>&gt;());</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"is heap until: "</span> &lt;&lt; *iter &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>代码输出为（注意，g++ 编译时需要添加 -std=c++11）：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">is heap: <span class="number">0</span></div><div class="line">make heap: <span class="number">2</span> <span class="number">6</span> <span class="number">3</span> <span class="number">16</span> <span class="number">14</span> <span class="number">5</span> <span class="number">4</span></div><div class="line">push heap: <span class="number">2</span> <span class="number">6</span> <span class="number">3</span> <span class="number">16</span> <span class="number">14</span> <span class="number">5</span> <span class="number">4</span> <span class="number">20</span></div><div class="line">pop heap: <span class="number">3</span> <span class="number">6</span> <span class="number">4</span> <span class="number">16</span> <span class="number">14</span> <span class="number">5</span> <span class="number">20</span></div><div class="line">sort heap: <span class="number">20</span> <span class="number">16</span> <span class="number">14</span> <span class="number">6</span> <span class="number">5</span> <span class="number">4</span> <span class="number">3</span></div><div class="line">is heap until: <span class="number">16</span></div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -600,9 +503,7 @@
           
             <a href="/tags/C/" rel="tag"># C++</a>
           
-            <a href="/tags/Qt/" rel="tag"># Qt</a>
-          
-            <a href="/tags/界面样式/" rel="tag"># 界面样式</a>
+            <a href="/tags/STL/" rel="tag"># STL</a>
           
         </div>
       
@@ -615,14 +516,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/07/13/读书笔记-读书笔记-Face-Image-Quality-Assessment-Based-on-Learning-to-Rank-JianshengChen/" rel="next" title="读书笔记-Face Image Quality Assessment Based on Learning to Rank(by Jiansheng Chen)">
+                <i class="fa fa-chevron-left"></i> 读书笔记-Face Image Quality Assessment Based on Learning to Rank(by Jiansheng Chen)
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/12/读书笔记-人脸图片质量评估/" rel="prev" title="人脸图片质量评估">
-                人脸图片质量评估 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/11/C-c-回调函数/" rel="prev" title="C++之回调函数">
+                C++之回调函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -862,7 +767,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Qt-界面样式设计"><span class="nav-text">1. Qt 界面样式设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-控件样式设计"><span class="nav-text">1.1. 控件样式设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-QLabel-样式"><span class="nav-text">1.1.1. QLabel 样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-QComboBox"><span class="nav-text">1.1.2. QComboBox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-3-QEditLine"><span class="nav-text">1.1.3. QEditLine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-4-QCheckbox"><span class="nav-text">1.1.4. QCheckbox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-5-QPushButton"><span class="nav-text">1.1.5. QPushButton</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-6-QScrollBar"><span class="nav-text">1.1.6. QScrollBar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-7-QTableWidget"><span class="nav-text">1.1.7. QTableWidget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-参考资料"><span class="nav-text">1.2. 参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-STL笔记之heap"><span class="nav-text">1. STL笔记之heap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-简介"><span class="nav-text">1.1. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-相关算法的使用"><span class="nav-text">1.2. 相关算法的使用</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1031,9 +936,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lchy1037.github.io/2017/07/06/C-Qt-界面样式设计/';
-          this.page.identifier = '2017/07/06/C-Qt-界面样式设计/';
-          this.page.title = 'Qt 界面样式设计';
+          this.page.url = 'http://lchy1037.github.io/2017/08/11/C-STL笔记之heap/';
+          this.page.identifier = '2017/08/11/C-STL笔记之heap/';
+          this.page.title = 'STL笔记之heap';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://chaoyangluan.disqus.com/embed.js';
