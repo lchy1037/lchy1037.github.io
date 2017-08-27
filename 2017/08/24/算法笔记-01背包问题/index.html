@@ -1,0 +1,1343 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="01背包问题详解。本文用贪婪法、动态规划法、回溯法和分支定界法四个算法来解决01背包问题（前三种给出了具体实现）。">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01背包问题">
+<meta property="og:url" content="http://lchy1037.github.io/2017/08/24/算法笔记-01背包问题/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="01背包问题详解。本文用贪婪法、动态规划法、回溯法和分支定界法四个算法来解决01背包问题（前三种给出了具体实现）。">
+<meta property="og:updated_time" content="2017-08-27T04:35:26.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01背包问题">
+<meta name="twitter:description" content="01背包问题详解。本文用贪婪法、动态规划法、回溯法和分支定界法四个算法来解决01背包问题（前三种给出了具体实现）。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lchy1037.github.io/2017/08/24/算法笔记-01背包问题/"/>
+
+
+
+
+
+  <title>01背包问题 | 个人笔记</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9bfcd65e3960ef296b63423e3a78625e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/lchy1037"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">与世界分享我的知识、经验和见解</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-music">
+          <a href="/music" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            音乐
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://lchy1037.github.io/2017/08/24/算法笔记-01背包问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChaoyangLuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/github_0.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01背包问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-24T13:07:00+08:00">
+                2017-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">算法笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/24/算法笔记-01背包问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/24/算法笔记-01背包问题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+              <div class="post-description">
+                  01背包问题详解。本文用贪婪法、动态规划法、回溯法和分支定界法四个算法来解决01背包问题（前三种给出了具体实现）。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- TOC -->
+<ul>
+<li><a href="#1-背包问题">1. 背包问题</a><ul>
+<li><a href="#11-问题描述">1.1. 问题描述</a></li>
+<li><a href="#12-求解策略">1.2. 求解策略</a><ul>
+<li><a href="#121-贪婪法">1.2.1. 贪婪法</a></li>
+<li><a href="#122-动态规划法">1.2.2. 动态规划法</a></li>
+<li><a href="#123-回溯法">1.2.3. 回溯法</a></li>
+<li><a href="#124-分支定界法">1.2.4. 分支定界法</a></li>
+</ul>
+</li>
+<li><a href="#13-小结">1.3. 小结</a></li>
+</ul>
+</li>
+<li><a href="#2-参考资料">2. 参考资料</a></li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-背包问题"><a href="#1-背包问题" class="headerlink" title="1. 背包问题"></a>1. 背包问题</h1><h2 id="1-1-问题描述"><a href="#1-1-问题描述" class="headerlink" title="1.1. 问题描述"></a>1.1. 问题描述</h2><p>有$N$件物品和一个最大载重量为$W$的背包（容量不计），其中第$i$件物品的重量为$weights[i]$，价值为$profits[i]$，求解在不超过背包最大载重量的前提下，将哪些物品装入背包可使总价值最大。问题的公式描述是：</p>
+<p>$${\max}{\sum}_{i=0}^{N-1}{p_i}{x_i}$$</p>
+<p>$$\text{s.t.}\;\;{\sum}_{i=0}^{N-1}{w_i}{x_i}\;\;\;{x_i{\in}{0,1}}$$</p>
+<p>其中$p_i$表示第$i$件物品的价值，$w_i$表示第$i$件物品的重量。要求的就是向量$x$。</p>
+<h2 id="1-2-求解策略"><a href="#1-2-求解策略" class="headerlink" title="1.2. 求解策略"></a>1.2. 求解策略</h2><p>01背包的特点是：每种物品仅有一件，可以选择放还是不放。</p>
+<p>下述分别用<strong>贪婪法</strong>、<strong>动态规划法</strong>、<strong>回溯法</strong>和<strong>分支定界法</strong>来给出求解策略。其中贪婪法不能保证一定获得最优解，但是它能非常接近最优解，而且有较好的性能。其它三种算法都能获得最优解。</p>
+<h3 id="1-2-1-贪婪法"><a href="#1-2-1-贪婪法" class="headerlink" title="1.2.1. 贪婪法"></a>1.2.1. 贪婪法</h3><p>01背包有若干种贪婪策略：</p>
+<ol>
+<li><strong>价值贪婪准则</strong>：从剩余物品中选出可以装入背包的价值最大的物品。</li>
+<li><strong>重量贪婪准则</strong>：从剩余的物品中选出可装入背包的重量最小的物品。</li>
+<li><strong>价值密度$p_i/w_i$贪婪准则</strong>：从剩余物品中选出可装入背包的$p_i/w_i$值最大的物品。</li>
+</ol>
+<p>通过简单的分析可知，上述三种贪婪策略都不能保证得到最优解。但是价值密度贪婪准则是一个好的启发式算法，在更多时候，它的解非常接近最优解。而且该算法能在$O(nlogn)$时间内完成，这是非常好的性能。</p>
+<p>由于三种算法思路简单，易于实现，在此不在贴出代码。</p>
+<h3 id="1-2-2-动态规划法"><a href="#1-2-2-动态规划法" class="headerlink" title="1.2.2. 动态规划法"></a>1.2.2. 动态规划法</h3><p>定义状态：$dp(i,j)$表示将前$i$个物品装入最大载重量为$j$的背包中所能获得的最大价值。</p>
+<p>根据状态可分析：当要抉择是否要装入第$i$件物品时，可分两种情况，一种是不装入，则$dp(i,j)=dp(i-1,j)$；另一种是装入，则最大价值为装入前$i-1$件物品能获得的最大价值加上第$i$件物品的价值，即$dp(i,j)=dp(i-1,j-weights(i))+profits(i)$。考虑两种情况中能获得较大价值的那种情况，即为要选择的策略。</p>
+<p>所以状态转移方程为：</p>
+<p>$$dp(i,j)=\begin{cases} \max{dp(i-1,j), dp(i-1,j-weights(i-1))+profits(i-1)}, &amp; \text{j &gt;= weights(i-1)} \ dp(i-1,j), &amp; \text{0 &lt;= j &lt; weights(i-1)} \end{cases}$$</p>
+<p>如果用$x[0:N-1]$表示装入的最佳策略，其中如果装入第$i$件物品x[i]=1，否则x[i]=0。则通过上述分析可知，当$dp(i,W)=dp(i-1,W)$时，没有装入第$i$件物品，否则就应该装入第$i$件物品。</p>
+<p>通过上述分析，代码如下（这里假设背包最大载重量、物品重量、价值都是整数）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * 01背包问题</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * @param: W: 背包的最大承重量</div><div class="line"> * @param: weights: 每件物品的重量</div><div class="line"> * @param: profits: 每件物品的价值</div><div class="line"> * @parma: x: 容量为N的向量，当x[i]=1表示装入第i件物品，x[i]=0表示不装入该物品</div><div class="line"> * @param: return: 返回最大价值</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> W, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; weights, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; profits, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; x)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> size = profits.size();</div><div class="line">    <span class="keyword">if</span> (weights.size() != size) <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; dp(size+<span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(W+<span class="number">1</span>));</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= size; ++i)&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= W; ++j)&#123;</div><div class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) dp[i][j] = <span class="number">0</span>;</div><div class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; j &gt;= weights[i<span class="number">-1</span>]) dp[i][j] = max(dp[i<span class="number">-1</span>][j], dp[i<span class="number">-1</span>][j-weights[i<span class="number">-1</span>]]+profits[i<span class="number">-1</span>]); </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= size; ++i)&#123;</div><div class="line">        <span class="keyword">if</span> (dp[i][W] == dp[i<span class="number">-1</span>][W]) x[i<span class="number">-1</span>] = <span class="number">0</span>;</div><div class="line">        <span class="keyword">else</span> x[i<span class="number">-1</span>] = <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> dp[size][W];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> arr_weights[] = &#123;<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;;</div><div class="line">    <span class="keyword">int</span> arr_profits[] = &#123;<span class="number">20</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">1</span>&#125;;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; weights(arr_weights, arr_weights+<span class="keyword">sizeof</span>(arr_weights)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>));      <span class="comment">// 每件物品的重量</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; profits(arr_profits, arr_profits+<span class="keyword">sizeof</span>(arr_profits)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>));      <span class="comment">// 每件物品的价值</span></div><div class="line">    <span class="keyword">int</span> W = <span class="number">9</span>;                                                                          <span class="comment">// 背包总重量</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; x(<span class="keyword">sizeof</span>(arr_weights)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>));                                    <span class="comment">// 用来存储是否装入第i件物品</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; maxProfit(W, weights, profits, x) &lt;&lt; <span class="built_in">endl</span>;                                  <span class="comment">// 输出最大价值</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; x.size(); ++i)                                                  <span class="comment">// 输出装载策略</span></div><div class="line">        <span class="built_in">cout</span> &lt;&lt; x[i] &lt;&lt; <span class="string">' '</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">35</span></div><div class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<p>可以发现上述程序时间复杂度为$O(NW)$，空间复杂度为$O(NW)$。其中时间复杂度不能再优化，但是空间复杂度可以再优化。</p>
+<p>通过状态转移方程可知，$dp(i,j)$只与$dp(i-1,j)$和$dp(i-1,j-weights(i))$有关。可以只用一个一维向量$f[0:W]$来表示背包最大载重量为$0$到$W$时能获得的最大价值。然后不断更新该向量。比如，当放入前0件物品时，可以得到向量$f[0:W]$的值，当要放入前1件物品时，通过状态转移方程可知它只与放入前0件物品时的$f[0:W]$有关，此时状态转移方程为：$f(j):=\max{f(j),f(j-weights(0))+profits(0)}$。依次类推，可知当要装入前$i$件物品时，状态转移方程为：</p>
+<p>$$f(j) := \begin{cases}f(j), &amp; \text{j&gt;=weights(i-1)} \ f(j-weights(i-1))+profits(i-1), &amp; \text{0&lt;=j&lt;weights(i-1)}\end{cases}$$</p>
+<p>此时空间复杂度为$O(W)$，不过此时不能获知装入的策略。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * 01背包问题</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * @param: W: 背包的最大承重量</div><div class="line"> * @param: weights: 每件物品的重量</div><div class="line"> * @param: profits: 每件物品的价值</div><div class="line"> * @parma: x: 容量为N的向量，当x[i]=1表示装入第i件物品，x[i]=0表示不装入该物品</div><div class="line"> * @param: return: 返回最大价值</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> W, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; weights, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; profits)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> size = profits.size();</div><div class="line">    <span class="keyword">if</span> (weights.size() != size) <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(W+<span class="number">1</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= size; ++i)&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= <span class="number">0</span>; --j)&#123;</div><div class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) dp[j] = <span class="number">0</span>;</div><div class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; j &gt;= weights[i<span class="number">-1</span>]) dp[j] = max(dp[j], dp[j-weights[i<span class="number">-1</span>]]+profits[i<span class="number">-1</span>]); </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> dp[W];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> arr_weights[] = &#123;<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;;</div><div class="line">    <span class="keyword">int</span> arr_profits[] = &#123;<span class="number">20</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">1</span>&#125;;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; weights(arr_weights, arr_weights+<span class="keyword">sizeof</span>(arr_weights)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>));      <span class="comment">// 每件物品的重量</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; profits(arr_profits, arr_profits+<span class="keyword">sizeof</span>(arr_profits)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>));      <span class="comment">// 每件物品的价值</span></div><div class="line">    <span class="keyword">int</span> W = <span class="number">9</span>;                                                                          <span class="comment">// 背包总重量</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; maxProfit(W, weights, profits) &lt;&lt; <span class="built_in">endl</span>;                                  <span class="comment">// 输出最大价值</span></div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">35</span></div></pre></td></tr></table></figure></p>
+<h3 id="1-2-3-回溯法"><a href="#1-2-3-回溯法" class="headerlink" title="1.2.3. 回溯法"></a>1.2.3. 回溯法</h3><p>01背包问题是选择一个物品的子集，来装入背包，以便获取最大价值，则解空间就应该组织成子集树结构。然后采用深度优先遍历来探索该子集树。只要左孩子表示一个可行的节点，就沿着左分支移动；否则，当右子树可能含有优于当前最优解的解的时候，搜索右子树。是否要搜索右子树，一个简单的判定方法是，当前节点的收益加上还未考察的对象的收益是否超过当前最优解的收益，如果不是，则不需要搜索右子树。</p>
+<p>实现代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * 01背包问题</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">// 全局变量</span></div><div class="line"><span class="keyword">int</span> N;                      <span class="comment">// 物品数量</span></div><div class="line"><span class="keyword">int</span> W;                      <span class="comment">// 背包最大载重量</span></div><div class="line"><span class="keyword">int</span> remainingWeights;       <span class="comment">// 剩余的物品重量</span></div><div class="line"><span class="keyword">int</span> currentWeights;         <span class="comment">// 当前的载重量</span></div><div class="line"><span class="keyword">int</span> currentProfits;         <span class="comment">// 当前装载的价值</span></div><div class="line"><span class="keyword">int</span> bestProfits;            <span class="comment">// 最大装载价值</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; weights;        <span class="comment">// 每件物品的重量</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; profits;        <span class="comment">// 每件物品的价值</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; x;             <span class="comment">// 当前的策略</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; bestX;         <span class="comment">// 最佳策略</span></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * @param: i: 第i层</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">rKnapsack</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span> (i &gt;= N)&#123;             <span class="comment">// 回溯结束条件</span></div><div class="line">        <span class="keyword">if</span> (currentProfits &gt; bestProfits)&#123;</div><div class="line">            bestProfits = currentProfits;</div><div class="line">            bestX = x;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    remainingWeights -= weights[i];</div><div class="line">    <span class="keyword">if</span> (currentWeights + weights[i] &lt;= W)&#123;                  <span class="comment">// 搜索左子树</span></div><div class="line">        x[i] = <span class="number">1</span>;</div><div class="line">        currentWeights += weights[i];</div><div class="line">        currentProfits += profits[i];</div><div class="line">        rKnapsack(i+<span class="number">1</span>);</div><div class="line">        currentWeights -= weights[i];</div><div class="line">        currentProfits -= profits[i];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (currentWeights + remainingWeights &gt; bestProfits)&#123;   <span class="comment">// 搜索右子树</span></div><div class="line">        x[i] = <span class="number">0</span>;</div><div class="line">        rKnapsack(i+<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> arr_weights[] = &#123;<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;;</div><div class="line">    <span class="keyword">int</span> arr_profits[] = &#123;<span class="number">20</span>, <span class="number">15</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">1</span>&#125;;</div><div class="line">    N = <span class="keyword">sizeof</span>(arr_weights)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>);</div><div class="line">    W = <span class="number">9</span>;</div><div class="line">    remainingWeights = <span class="number">0</span>;</div><div class="line">    currentWeights = <span class="number">0</span>;</div><div class="line">    currentProfits = <span class="number">0</span>;</div><div class="line">    bestProfits = <span class="number">0</span>;</div><div class="line">    weights.assign(arr_weights, arr_weights+N);</div><div class="line">    profits.assign(arr_profits, arr_profits+N);</div><div class="line">    x = <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(N);</div><div class="line">    bestX = <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(N);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</div><div class="line">        remainingWeights += weights[i];</div><div class="line"></div><div class="line">    rKnapsack(<span class="number">0</span>);                   <span class="comment">// 开始回溯</span></div><div class="line">    <span class="built_in">cout</span> &lt;&lt; bestProfits &lt;&lt; <span class="built_in">endl</span>;    <span class="comment">// 输出最大价值</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)     <span class="comment">// 输出选择策略</span></div><div class="line">        <span class="built_in">cout</span> &lt;&lt; bestX[i] &lt;&lt; <span class="string">' '</span>;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码输出：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">35</span></div><div class="line"><span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<h3 id="1-2-4-分支定界法"><a href="#1-2-4-分支定界法" class="headerlink" title="1.2.4. 分支定界法"></a>1.2.4. 分支定界法</h3><p>分支定界法和回溯法很相似，先将解空间构造为子集树，然后采用广度优先遍历来获取最佳策略。由于分支定界法占用内存大（需要存储将要扩展的节点），效率不高，所以不如回溯法。代码等以后补充。</p>
+<h2 id="1-3-小结"><a href="#1-3-小结" class="headerlink" title="1.3. 小结"></a>1.3. 小结</h2><p>贪婪法是一种启发式算法，虽然不能保证获取最优解，但是能获得近似解，而且效率高，一般价值密度贪婪准则的实用效果更好。动态规划法是一种常用的算法，能获得最优解，而且直观、易于理解。回溯法和分支定界法都是将解空间构建为子集树，然后遍历搜索所有情况，相比于暴力搜索，这两种方法都采用界定函数来缩小搜索的范围（即去掉不必要搜索的节点），由于分支定界法的空间需求比回溯法要大的多，因此当内存容量有限时，回溯法更容易成功。</p>
+<h1 id="2-参考资料"><a href="#2-参考资料" class="headerlink" title="2. 参考资料"></a>2. 参考资料</h1><ol>
+<li><a href="http://love-oriented.com/pack/" title="背包问题九讲" target="_blank" rel="external">背包问题九讲</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/11/C-c-回调函数/" rel="next" title="C++之回调函数">
+                <i class="fa fa-chevron-left"></i> C++之回调函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/24/算法笔记-回溯法和分支定界法概述/" rel="prev" title="回溯法和分支定界法概述">
+                回溯法和分支定界法概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar/github_0.jpg"
+               alt="ChaoyangLuan" />
+          <p class="site-author-name" itemprop="name">ChaoyangLuan</p>
+           
+              <p class="site-description motion-element" itemprop="description">就算是条咸鱼 也要做最咸的一条</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lchy1037" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zh-cn.facebook.com/" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/" title="Github" target="_blank">Github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hexo.io/" title="Hexo" target="_blank">Hexo</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-背包问题"><span class="nav-text">1. 背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-问题描述"><span class="nav-text">1.1. 问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-求解策略"><span class="nav-text">1.2. 求解策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-贪婪法"><span class="nav-text">1.2.1. 贪婪法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-动态规划法"><span class="nav-text">1.2.2. 动态规划法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-回溯法"><span class="nav-text">1.2.3. 回溯法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-分支定界法"><span class="nav-text">1.2.4. 分支定界法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-小结"><span class="nav-text">1.3. 小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-参考资料"><span class="nav-text">2. 参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChaoyangLuan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chaoyangluan.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lchy1037.github.io/2017/08/24/算法笔记-01背包问题/';
+          this.page.identifier = '2017/08/24/算法笔记-01背包问题/';
+          this.page.title = '01背包问题';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chaoyangluan.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

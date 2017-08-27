@@ -1,0 +1,1325 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据结构,栈," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。">
+<meta name="keywords" content="数据结构,栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈的简单应用">
+<meta property="og:url" content="http://lchy1037.github.io/2017/08/25/数据结构笔记-栈的简单应用/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。">
+<meta property="og:updated_time" content="2017-08-27T02:10:50.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="栈的简单应用">
+<meta name="twitter:description" content="本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lchy1037.github.io/2017/08/25/数据结构笔记-栈的简单应用/"/>
+
+
+
+
+
+  <title>栈的简单应用 | 个人笔记</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9bfcd65e3960ef296b63423e3a78625e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/lchy1037"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">与世界分享我的知识、经验和见解</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-music">
+          <a href="/music" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-music"></i> <br />
+            
+            音乐
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://lchy1037.github.io/2017/08/25/数据结构笔记-栈的简单应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ChaoyangLuan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar/github_0.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">栈的简单应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-25T14:06:00+08:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/25/数据结构笔记-栈的简单应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/25/数据结构笔记-栈的简单应用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+              <div class="post-description">
+                  本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!-- TOC -->
+<ul>
+<li><a href="#1-栈的应用汇总">1. 栈的应用汇总</a><ul>
+<li><a href="#11-括号匹配">1.1. 括号匹配</a></li>
+<li><a href="#12-汉诺塔（towers-of-hnoi）">1.2. 汉诺塔（Towers of Hnoi）</a></li>
+<li><a href="#13-迷宫老鼠">1.3. 迷宫老鼠</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="1-栈的应用汇总"><a href="#1-栈的应用汇总" class="headerlink" title="1. 栈的应用汇总"></a>1. 栈的应用汇总</h1><h2 id="1-1-括号匹配"><a href="#1-1-括号匹配" class="headerlink" title="1.1. 括号匹配"></a>1.1. 括号匹配</h2><p><strong>问题描述</strong>：判断一个字符串的左右括号是否匹配。<br>输入是一个字符串，输出是 true 或者 false。</p>
+<p><strong>求解策略</strong>：如果从左到右地扫描一个字符串，那么每一个右括号都与最近扫描的那个未匹配的左括号相匹配。我们可以从左到右扫描，将扫描到的左括号保存在栈中。每当扫描到一个右括号，就将它与栈顶的左括号（如果存在）相匹配，并将匹配的左括号从栈顶删除。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">/* 判断表达式中括号匹配 */</span></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">printMatchedPairs</span><span class="params">(<span class="built_in">string</span> expr)</span></span>&#123;</div><div class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</div><div class="line">    <span class="keyword">int</span> length = expr.size();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i)&#123;</div><div class="line">        <span class="keyword">if</span> (expr.at(i) == <span class="string">'('</span>)</div><div class="line">            s.push(i);</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (expr.at(i) == <span class="string">')'</span>)&#123;</div><div class="line">            <span class="keyword">if</span> (s.empty())</div><div class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                s.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (!s.empty())</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</div><div class="line">    <span class="comment">// 括号匹配</span></div><div class="line">    <span class="built_in">string</span> expr;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; expr;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; expr &lt;&lt; <span class="string">" matched is "</span> &lt;&lt; printMatchedPairs(expr) &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>时间复杂度</strong>：上述代码的时间复杂度为 O(n)，其中 n 为输入表达式的长度。</p>
+<h2 id="1-2-汉诺塔（Towers-of-Hnoi）"><a href="#1-2-汉诺塔（Towers-of-Hnoi）" class="headerlink" title="1.2. 汉诺塔（Towers of Hnoi）"></a>1.2. 汉诺塔（Towers of Hnoi）</h2><p><strong>问题描述</strong>：假设有 n 个碟子和 3 座塔。初始时所有碟子从大到小堆在塔 1 上，我们要把碟子都移动到塔 2 上，另有塔 3 做为中转站。移动中要求：</p>
+<ol>
+<li>每次移动一个；</li>
+<li>任何时候都不能把大碟子压在小碟子上面。</li>
+</ol>
+<p><strong>求解策略</strong>：一个简洁的解决方法是递归。为了把最大的碟子移动到塔 2 的底部。必须把其余 n-1 个碟子移动到塔 3，然后把最大的碟子移动到塔 2。接下来是把塔 3 上的 n-1 个碟子移到塔 2。为此可以利用塔 2 和塔 1。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">/* 汉诺塔 */</span></div><div class="line"><span class="comment">// 直接递归</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">towersOfHanoi</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> x, <span class="keyword">char</span> y, <span class="keyword">char</span> z)</span></span>&#123;</div><div class="line">    <span class="comment">// 将塔 x 顶部的 n 个盘子移到塔 y，用 塔 z 作为中转地</span></div><div class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>)&#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="string">" -&gt; "</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        towersOfHanoi(n<span class="number">-1</span>, x, z, y);</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="string">" -&gt; "</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        towersOfHanoi(n<span class="number">-1</span>, z, y, x);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> num = <span class="number">0</span>;</div><div class="line">    cim &gt;&gt; num;</div><div class="line">    towersOfHanoi(num, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>时间复杂度</strong>：上述程序的运行时间正比于输出的信息行数目，而信息行数目等于碟子移动的次数。分析可知，碟子移动次数的递归式 $moves(n)$：<br>$$<br>moves(n) = \begin{cases}<br>0, &amp; \text{n is equal to 0} \<br>2moves(n-1)+1, &amp; \text{n is greater than 0}<br>\end{cases}<br>$$<br>计算这个公式，可以得到结果为 $moves(n)=2^n-1$。可以证明，$2^n-1$ 实际上是最少的移动次数。可以判定函数 towerOfHanoi 的复杂度为 $O(2^n)$。</p>
+<h2 id="1-3-迷宫老鼠"><a href="#1-3-迷宫老鼠" class="headerlink" title="1.3. 迷宫老鼠"></a>1.3. 迷宫老鼠</h2><p><strong>问题描述</strong>：迷宫（maze）是一个矩形区域，有一个入口和一个出口。迷宫内部包含不能穿越的墙壁或障碍物。这些障碍物沿着行和列放置，与迷宫边界平行。迷宫的入口在左上角，出口在右下角。迷宫老鼠（rat in a maze）问题是要寻找一条从入口到出口的路径。路径是一个由位置组成的序列，每一个位置都没有障碍，而且除入口之外，路径上的每一个位置都是前一个位置在东南西北方向上相邻的一个位置。</p>
+<p>假设迷宫是个 n*n 的方阵，且足够小（能够存储在目标计算机内存中）。在矩阵中，当且仅当在位置 (i, j) 处有一个障碍时，其值为1，否则其值为0。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">    _________________________</div><div class="line">入口    |||||           |||||                      入口  <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">    |   |||||   |||||   |||||                           <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">    |___________|||||________ 出口                      <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span>  出口</div></pre></td></tr></table></figure>
+<p><strong>求解策略</strong>：这个求解有三个步骤：输入迷宫、寻找路径和输出路径。本文只讨论寻找路径模块。</p>
+<p>寻找路径：首先把迷宫入口作为当前位置。如果当前位置是迷宫出口，那么已经找到一条路径，寻找工作结束。如果当前位置不是迷宫出口，则在当前位置放置障碍物，以阻止寻找过程中又绕回到这个位置。然后检查相邻位置是否有空闲，如果有，就移动到一个空闲的相邻位置上，然后从这个位置开始寻找通往出口的路径。如果不成功，就选择另一个空闲的相邻位置，并从它开始寻找通往出口的路径。为了方便移动，在进入新的相邻位置之前，把当前位置保存在一个栈中。如果所有空闲的相邻位置都已经被探索过，但还未找到路径，则表明迷宫不存在从入口到出口的路径。</p>
+<p>在迷宫的内部位置开始，有4中可能的移动方向：上下左右。从迷宫的边界开始，只有两种或三种可能的移动方向。为了避免在处理内部位置和边界位置时存在的差别，可以在迷宫周围增加一圈障碍物。对于 m*m 的数组 maze，这一圈障碍物将占据数组 maze 的第 0 行，第 m+1 行，第 0 列，第 m+1 列。这样，从迷宫的每个位置都有 4 种可能的移动方向，所以程序不需要处理边界条件，大大简化了代码设计。</p>
+<p>每个迷宫位置都可以用行和列的下标来表示，分别称为迷宫位置的行坐标的列坐标。可以定义一个带有数据成员 row 和 col 的类 position，使用它的对象来跟踪记录迷宫位置。用数组表示栈，栈用来存储从入口到当前位置的路径。</p>
+<p>要确定从位置 here 开始向哪一个相邻位置移动，可以用下表的偏移量表来计算。在下表中，offset[i].row 和 offset[i].col 分别是从当前位置沿方向 i 移动到下一个相邻位置时，row 和 col 坐标的增量。</p>
+<p>| 移动 | 方向 | 行偏移量 | 列偏移量|<br>| 0 | 右 | 0 | 1 |<br>| 1 | 下 | 1 | 0 |<br>| 2 | 左 | 0 | -1 |<br>| 3 | 上 | -1 | 0 |</p>
+<p>为了不重蹈已经走过的位置，在每一个走过的位置 maze[i][j] 上设置障碍物（即令 maze[i][j]=1）。</p>
+<figure class="highlight c++"><figcaption><span>title='main.cpp'</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 寻找迷宫路径代码 */</span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">position</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> row;</div><div class="line">    <span class="keyword">int</span> col;</div><div class="line">&#125;position;</div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt; maze;      <span class="comment">// 迷宫，假设是正方形</span></div><div class="line"><span class="keyword">int</span> size = maze.size();       <span class="comment">// 迷宫大小</span></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">findPath</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">// 寻找一条从入口（1，1）到达出口（size，size）的路径</span></div><div class="line">    <span class="comment">// 如果找到，返回true，否则返回false</span></div><div class="line">    <span class="built_in">stack</span>&lt;position&gt; *path = <span class="keyword">new</span> <span class="built_in">stack</span>&lt;position&gt;;</div><div class="line">    <span class="comment">// 初始化偏移量</span></div><div class="line">    position offset[<span class="number">4</span>];</div><div class="line">    offset[<span class="number">0</span>].row = <span class="number">0</span>; offset[<span class="number">0</span>].col = <span class="number">1</span>;   <span class="comment">// 右</span></div><div class="line">    offset[<span class="number">1</span>].row = <span class="number">1</span>; offset[<span class="number">1</span>].col = <span class="number">0</span>;   <span class="comment">// 下</span></div><div class="line">    offset[<span class="number">2</span>].row = <span class="number">0</span>, offset[<span class="number">2</span>].col = <span class="number">-1</span>;  <span class="comment">// 左</span></div><div class="line">    offset[<span class="number">3</span>].row = <span class="number">-1</span>; offset[<span class="number">3</span>].col = <span class="number">0</span>;  <span class="comment">// 上</span></div><div class="line"></div><div class="line">    <span class="comment">// 初始化迷宫外围的障碍墙</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= size + <span class="number">1</span>; ++i)&#123;</div><div class="line">        maze[<span class="number">0</span>][i] = maze[size + <span class="number">1</span>][i] = <span class="number">1</span>;     <span class="comment">// 底部和顶部</span></div><div class="line">        maze[i][<span class="number">0</span>] = maze[i][size + <span class="number">1</span>] = <span class="number">1</span>;     <span class="comment">// 左和右</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    position here;</div><div class="line">    here.row = <span class="number">1</span>;</div><div class="line">    here.col = <span class="number">1</span>;</div><div class="line">    maze[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> option = <span class="number">0</span>;             <span class="comment">// 防止回到入口</span></div><div class="line">    <span class="keyword">int</span> lastOption = <span class="number">3</span>;         <span class="comment">// 下一步</span></div><div class="line"></div><div class="line">    <span class="comment">// 寻找一条路径</span></div><div class="line">    <span class="keyword">while</span> (here.row != size || here.col != size)&#123;</div><div class="line">        <span class="comment">// 没有达到出口，找到要移动的相邻的一步</span></div><div class="line">        <span class="keyword">int</span> r, c;</div><div class="line">        <span class="keyword">while</span> (option &lt;= lastOption)&#123;</div><div class="line">            r = here.row + offset[option].row;</div><div class="line">            c = here.col + offset[option].col;</div><div class="line">            <span class="keyword">if</span> (maze[r][c] == <span class="number">0</span>) <span class="keyword">break</span>;</div><div class="line">            ++option;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 相邻的一步是否找到</span></div><div class="line">        <span class="keyword">if</span> (option &lt;= lastOption)&#123;</div><div class="line">            <span class="comment">// 移动到maze[r][c]</span></div><div class="line">            path-&gt;push(here);</div><div class="line">            here.row = r;</div><div class="line">            here.col = c;</div><div class="line">            maze[r][c] = <span class="number">1</span>;         <span class="comment">// 设置为1，避免重复访问</span></div><div class="line">            option = <span class="number">0</span>;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">// 没有邻近的一步可走，返回</span></div><div class="line">            <span class="keyword">if</span> (path-&gt;empty())  <span class="keyword">return</span> <span class="literal">false</span>;       <span class="comment">// 没有位置可返回</span></div><div class="line">            position next = path-&gt;top();</div><div class="line">            path-&gt;pop();</div><div class="line">            <span class="keyword">if</span> (next.row == here.row)</div><div class="line">                option = <span class="number">2</span> + next.col - here.col;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                option = <span class="number">3</span> + next.row - here.row;</div><div class="line">            here = next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span>;            <span class="comment">// 到达出口</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>时间复杂度</strong>：程序的时间复杂度应为 O(unblocked)，其中 unblocked 是迷宫的空闲位置数目。这个复杂度为 O(szie^2) = O(m^2)。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/栈/" rel="tag"># 栈</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/25/算法笔记-内部排序算法汇总/" rel="next" title="内部排序算法汇总">
+                <i class="fa fa-chevron-left"></i> 内部排序算法汇总
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/25/算法笔记-面试问题（杂谈）/" rel="prev" title="面试问题杂谈">
+                面试问题杂谈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar/github_0.jpg"
+               alt="ChaoyangLuan" />
+          <p class="site-author-name" itemprop="name">ChaoyangLuan</p>
+           
+              <p class="site-description motion-element" itemprop="description">就算是条咸鱼 也要做最咸的一条</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lchy1037" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zh-cn.facebook.com/" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://github.com/" title="Github" target="_blank">Github</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hexo.io/" title="Hexo" target="_blank">Hexo</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-栈的应用汇总"><span class="nav-text">1. 栈的应用汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-括号匹配"><span class="nav-text">1.1. 括号匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-汉诺塔（Towers-of-Hnoi）"><span class="nav-text">1.2. 汉诺塔（Towers of Hnoi）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-迷宫老鼠"><span class="nav-text">1.3. 迷宫老鼠</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChaoyangLuan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://chaoyangluan.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lchy1037.github.io/2017/08/25/数据结构笔记-栈的简单应用/';
+          this.page.identifier = '2017/08/25/数据结构笔记-栈的简单应用/';
+          this.page.title = '栈的简单应用';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chaoyangluan.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
