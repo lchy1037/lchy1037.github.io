@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://lchy1037.github.io/2017/08/25/数据结构笔记-栈的简单应用/index.html">
 <meta property="og:site_name" content="个人笔记">
 <meta property="og:description" content="本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。">
-<meta property="og:updated_time" content="2017-08-27T02:10:50.639Z">
+<meta property="og:updated_time" content="2017-08-31T07:56:40.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="栈的简单应用">
 <meta name="twitter:description" content="本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。">
@@ -447,7 +447,7 @@
 </ol>
 <p><strong>求解策略</strong>：一个简洁的解决方法是递归。为了把最大的碟子移动到塔 2 的底部。必须把其余 n-1 个碟子移动到塔 3，然后把最大的碟子移动到塔 2。接下来是把塔 3 上的 n-1 个碟子移到塔 2。为此可以利用塔 2 和塔 1。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">/* 汉诺塔 */</span></div><div class="line"><span class="comment">// 直接递归</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">towersOfHanoi</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> x, <span class="keyword">char</span> y, <span class="keyword">char</span> z)</span></span>&#123;</div><div class="line">    <span class="comment">// 将塔 x 顶部的 n 个盘子移到塔 y，用 塔 z 作为中转地</span></div><div class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>)&#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="string">" -&gt; "</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        towersOfHanoi(n<span class="number">-1</span>, x, z, y);</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="string">" -&gt; "</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        towersOfHanoi(n<span class="number">-1</span>, z, y, x);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> num = <span class="number">0</span>;</div><div class="line">    cim &gt;&gt; num;</div><div class="line">    towersOfHanoi(num, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>时间复杂度</strong>：上述程序的运行时间正比于输出的信息行数目，而信息行数目等于碟子移动的次数。分析可知，碟子移动次数的递归式 $moves(n)$：<br>$$<br>moves(n) = \begin{cases}<br>0, &amp; \text{n is equal to 0} \<br>2moves(n-1)+1, &amp; \text{n is greater than 0}<br>\end{cases}<br>$$<br>计算这个公式，可以得到结果为 $moves(n)=2^n-1$。可以证明，$2^n-1$ 实际上是最少的移动次数。可以判定函数 towerOfHanoi 的复杂度为 $O(2^n)$。</p>
+<p><strong>时间复杂度</strong>：上述程序的运行时间正比于输出的信息行数目，而信息行数目等于碟子移动的次数。分析可知，碟子移动次数的递归式 $moves(n)$：<br>$$<br>moves(n) = \begin{cases}0, &amp; \text{n is equal to 0} \<br>2moves(n-1)+1, &amp; \text{n is greater than 0}\end{cases}<br>$$<br>计算这个公式，可以得到结果为 $moves(n)=2^n-1$。可以证明，$2^n-1$ 实际上是最少的移动次数。可以判定函数 towerOfHanoi 的复杂度为 $O(2^n)$。</p>
 <h2 id="1-3-迷宫老鼠"><a href="#1-3-迷宫老鼠" class="headerlink" title="1.3. 迷宫老鼠"></a>1.3. 迷宫老鼠</h2><p><strong>问题描述</strong>：迷宫（maze）是一个矩形区域，有一个入口和一个出口。迷宫内部包含不能穿越的墙壁或障碍物。这些障碍物沿着行和列放置，与迷宫边界平行。迷宫的入口在左上角，出口在右下角。迷宫老鼠（rat in a maze）问题是要寻找一条从入口到出口的路径。路径是一个由位置组成的序列，每一个位置都没有障碍，而且除入口之外，路径上的每一个位置都是前一个位置在东南西北方向上相邻的一个位置。</p>
 <p>假设迷宫是个 n*n 的方阵，且足够小（能够存储在目标计算机内存中）。在矩阵中，当且仅当在位置 (i, j) 处有一个障碍时，其值为1，否则其值为0。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">    _________________________</div><div class="line">入口    |||||           |||||                      入口  <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">    |   |||||   |||||   |||||                           <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">    |___________|||||________ 出口                      <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span>  出口</div></pre></td></tr></table></figure>
@@ -456,7 +456,42 @@
 <p>在迷宫的内部位置开始，有4中可能的移动方向：上下左右。从迷宫的边界开始，只有两种或三种可能的移动方向。为了避免在处理内部位置和边界位置时存在的差别，可以在迷宫周围增加一圈障碍物。对于 m*m 的数组 maze，这一圈障碍物将占据数组 maze 的第 0 行，第 m+1 行，第 0 列，第 m+1 列。这样，从迷宫的每个位置都有 4 种可能的移动方向，所以程序不需要处理边界条件，大大简化了代码设计。</p>
 <p>每个迷宫位置都可以用行和列的下标来表示，分别称为迷宫位置的行坐标的列坐标。可以定义一个带有数据成员 row 和 col 的类 position，使用它的对象来跟踪记录迷宫位置。用数组表示栈，栈用来存储从入口到当前位置的路径。</p>
 <p>要确定从位置 here 开始向哪一个相邻位置移动，可以用下表的偏移量表来计算。在下表中，offset[i].row 和 offset[i].col 分别是从当前位置沿方向 i 移动到下一个相邻位置时，row 和 col 坐标的增量。</p>
-<p>| 移动 | 方向 | 行偏移量 | 列偏移量|<br>| 0 | 右 | 0 | 1 |<br>| 1 | 下 | 1 | 0 |<br>| 2 | 左 | 0 | -1 |<br>| 3 | 上 | -1 | 0 |</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">移动</th>
+<th style="text-align:center">方向</th>
+<th style="text-align:center">行偏移量</th>
+<th style="text-align:center">列偏移量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">右</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">下</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">左</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">-1</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">上</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
 <p>为了不重蹈已经走过的位置，在每一个走过的位置 maze[i][j] 上设置障碍物（即令 maze[i][j]=1）。</p>
 <figure class="highlight c++"><figcaption><span>title='main.cpp'</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 寻找迷宫路径代码 */</span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">position</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> row;</div><div class="line">    <span class="keyword">int</span> col;</div><div class="line">&#125;position;</div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt; maze;      <span class="comment">// 迷宫，假设是正方形</span></div><div class="line"><span class="keyword">int</span> size = maze.size();       <span class="comment">// 迷宫大小</span></div><div class="line"><span class="function"><span class="keyword">bool</span> <span class="title">findPath</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">// 寻找一条从入口（1，1）到达出口（size，size）的路径</span></div><div class="line">    <span class="comment">// 如果找到，返回true，否则返回false</span></div><div class="line">    <span class="built_in">stack</span>&lt;position&gt; *path = <span class="keyword">new</span> <span class="built_in">stack</span>&lt;position&gt;;</div><div class="line">    <span class="comment">// 初始化偏移量</span></div><div class="line">    position offset[<span class="number">4</span>];</div><div class="line">    offset[<span class="number">0</span>].row = <span class="number">0</span>; offset[<span class="number">0</span>].col = <span class="number">1</span>;   <span class="comment">// 右</span></div><div class="line">    offset[<span class="number">1</span>].row = <span class="number">1</span>; offset[<span class="number">1</span>].col = <span class="number">0</span>;   <span class="comment">// 下</span></div><div class="line">    offset[<span class="number">2</span>].row = <span class="number">0</span>, offset[<span class="number">2</span>].col = <span class="number">-1</span>;  <span class="comment">// 左</span></div><div class="line">    offset[<span class="number">3</span>].row = <span class="number">-1</span>; offset[<span class="number">3</span>].col = <span class="number">0</span>;  <span class="comment">// 上</span></div><div class="line"></div><div class="line">    <span class="comment">// 初始化迷宫外围的障碍墙</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= size + <span class="number">1</span>; ++i)&#123;</div><div class="line">        maze[<span class="number">0</span>][i] = maze[size + <span class="number">1</span>][i] = <span class="number">1</span>;     <span class="comment">// 底部和顶部</span></div><div class="line">        maze[i][<span class="number">0</span>] = maze[i][size + <span class="number">1</span>] = <span class="number">1</span>;     <span class="comment">// 左和右</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    position here;</div><div class="line">    here.row = <span class="number">1</span>;</div><div class="line">    here.col = <span class="number">1</span>;</div><div class="line">    maze[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> option = <span class="number">0</span>;             <span class="comment">// 防止回到入口</span></div><div class="line">    <span class="keyword">int</span> lastOption = <span class="number">3</span>;         <span class="comment">// 下一步</span></div><div class="line"></div><div class="line">    <span class="comment">// 寻找一条路径</span></div><div class="line">    <span class="keyword">while</span> (here.row != size || here.col != size)&#123;</div><div class="line">        <span class="comment">// 没有达到出口，找到要移动的相邻的一步</span></div><div class="line">        <span class="keyword">int</span> r, c;</div><div class="line">        <span class="keyword">while</span> (option &lt;= lastOption)&#123;</div><div class="line">            r = here.row + offset[option].row;</div><div class="line">            c = here.col + offset[option].col;</div><div class="line">            <span class="keyword">if</span> (maze[r][c] == <span class="number">0</span>) <span class="keyword">break</span>;</div><div class="line">            ++option;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 相邻的一步是否找到</span></div><div class="line">        <span class="keyword">if</span> (option &lt;= lastOption)&#123;</div><div class="line">            <span class="comment">// 移动到maze[r][c]</span></div><div class="line">            path-&gt;push(here);</div><div class="line">            here.row = r;</div><div class="line">            here.col = c;</div><div class="line">            maze[r][c] = <span class="number">1</span>;         <span class="comment">// 设置为1，避免重复访问</span></div><div class="line">            option = <span class="number">0</span>;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">// 没有邻近的一步可走，返回</span></div><div class="line">            <span class="keyword">if</span> (path-&gt;empty())  <span class="keyword">return</span> <span class="literal">false</span>;       <span class="comment">// 没有位置可返回</span></div><div class="line">            position next = path-&gt;top();</div><div class="line">            path-&gt;pop();</div><div class="line">            <span class="keyword">if</span> (next.row == here.row)</div><div class="line">                option = <span class="number">2</span> + next.col - here.col;</div><div class="line">            <span class="keyword">else</span></div><div class="line">                option = <span class="number">3</span> + next.row - here.row;</div><div class="line">            here = next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span>;            <span class="comment">// 到达出口</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>时间复杂度</strong>：程序的时间复杂度应为 O(unblocked)，其中 unblocked 是迷宫的空闲位置数目。这个复杂度为 O(szie^2) = O(m^2)。</p>
@@ -504,8 +539,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/24/算法笔记-回溯法和分支定界法概述/" rel="next" title="回溯法和分支定界法概述">
-                <i class="fa fa-chevron-left"></i> 回溯法和分支定界法概述
+              <a href="/2017/08/25/算法笔记-面试问题（杂谈）/" rel="next" title="面试问题杂谈">
+                <i class="fa fa-chevron-left"></i> 面试问题杂谈
               </a>
             
           </div>
@@ -514,8 +549,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/25/算法笔记-面试问题（杂谈）/" rel="prev" title="面试问题杂谈">
-                面试问题杂谈 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/25/算法笔记-排列组合问题/" rel="prev" title="排列组合问题">
+                排列组合问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -618,7 +653,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -629,7 +664,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -640,7 +675,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
