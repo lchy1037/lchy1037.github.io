@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://lchy1037.github.io/2017/08/25/数据结构笔记-栈的简单应用/index.html">
 <meta property="og:site_name" content="个人笔记">
 <meta property="og:description" content="本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。">
-<meta property="og:updated_time" content="2017-08-31T07:56:40.613Z">
+<meta property="og:updated_time" content="2017-08-31T07:59:40.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="栈的简单应用">
 <meta name="twitter:description" content="本文记录了栈的三个简单应用：1.括号匹配；2.汉诺塔；3.迷宫老鼠问题。">
@@ -447,7 +447,9 @@
 </ol>
 <p><strong>求解策略</strong>：一个简洁的解决方法是递归。为了把最大的碟子移动到塔 2 的底部。必须把其余 n-1 个碟子移动到塔 3，然后把最大的碟子移动到塔 2。接下来是把塔 3 上的 n-1 个碟子移到塔 2。为此可以利用塔 2 和塔 1。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">/* 汉诺塔 */</span></div><div class="line"><span class="comment">// 直接递归</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">towersOfHanoi</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> x, <span class="keyword">char</span> y, <span class="keyword">char</span> z)</span></span>&#123;</div><div class="line">    <span class="comment">// 将塔 x 顶部的 n 个盘子移到塔 y，用 塔 z 作为中转地</span></div><div class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>)&#123;</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="string">" -&gt; "</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        towersOfHanoi(n<span class="number">-1</span>, x, z, y);</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="string">" -&gt; "</span> &lt;&lt; y &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">        towersOfHanoi(n<span class="number">-1</span>, z, y, x);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> num = <span class="number">0</span>;</div><div class="line">    cim &gt;&gt; num;</div><div class="line">    towersOfHanoi(num, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>时间复杂度</strong>：上述程序的运行时间正比于输出的信息行数目，而信息行数目等于碟子移动的次数。分析可知，碟子移动次数的递归式 $moves(n)$：<br>$$<br>moves(n) = \begin{cases}0, &amp; \text{n is equal to 0} \<br>2moves(n-1)+1, &amp; \text{n is greater than 0}\end{cases}<br>$$<br>计算这个公式，可以得到结果为 $moves(n)=2^n-1$。可以证明，$2^n-1$ 实际上是最少的移动次数。可以判定函数 towerOfHanoi 的复杂度为 $O(2^n)$。</p>
+<p><strong>时间复杂度</strong>：上述程序的运行时间正比于输出的信息行数目，而信息行数目等于碟子移动的次数。分析可知，碟子移动次数的递归式 $moves(n)$：</p>
+<p>$$moves(n) = \begin{cases}0, &amp; \text{n is equal to 0} \ 2moves(n-1)+1, &amp; \text{n is greater than 0}\end{cases}$$</p>
+<p>计算这个公式，可以得到结果为 $moves(n)=2^n-1$。可以证明，$2^n-1$ 实际上是最少的移动次数。可以判定函数 towerOfHanoi 的复杂度为 $O(2^n)$。</p>
 <h2 id="1-3-迷宫老鼠"><a href="#1-3-迷宫老鼠" class="headerlink" title="1.3. 迷宫老鼠"></a>1.3. 迷宫老鼠</h2><p><strong>问题描述</strong>：迷宫（maze）是一个矩形区域，有一个入口和一个出口。迷宫内部包含不能穿越的墙壁或障碍物。这些障碍物沿着行和列放置，与迷宫边界平行。迷宫的入口在左上角，出口在右下角。迷宫老鼠（rat in a maze）问题是要寻找一条从入口到出口的路径。路径是一个由位置组成的序列，每一个位置都没有障碍，而且除入口之外，路径上的每一个位置都是前一个位置在东南西北方向上相邻的一个位置。</p>
 <p>假设迷宫是个 n*n 的方阵，且足够小（能够存储在目标计算机内存中）。在矩阵中，当且仅当在位置 (i, j) 处有一个障碍时，其值为1，否则其值为0。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">    _________________________</div><div class="line">入口    |||||           |||||                      入口  <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">    |   |||||   |||||   |||||                           <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span></div><div class="line">    |___________|||||________ 出口                      <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span>  出口</div></pre></td></tr></table></figure>
@@ -539,8 +541,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/25/算法笔记-面试问题（杂谈）/" rel="next" title="面试问题杂谈">
-                <i class="fa fa-chevron-left"></i> 面试问题杂谈
+              <a href="/2017/08/24/算法笔记-回溯法和分支定界法概述/" rel="next" title="回溯法和分支定界法概述">
+                <i class="fa fa-chevron-left"></i> 回溯法和分支定界法概述
               </a>
             
           </div>
@@ -549,8 +551,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/25/算法笔记-排列组合问题/" rel="prev" title="排列组合问题">
-                排列组合问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/25/算法笔记-内部排序算法汇总/" rel="prev" title="内部排序算法汇总">
+                内部排序算法汇总 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
