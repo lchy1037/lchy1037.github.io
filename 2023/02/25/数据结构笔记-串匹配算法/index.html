@@ -98,7 +98,7 @@
 <meta property="og:description" content="如何在字符串数据中，检测和提取以字符串形式给出的某一局部特征，这类操作都属于串模式匹配（string pattern matching）范畴，简称串匹配。一般的，即对基于同一字符表的任何主串T(|T|&#x3D;n)和模式串P(|P|&#x3D;m)：判定T中是否存在某一子串与P相同，若存在（匹配），则报告该子串在T中的起始位置。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2023-02-25T08:12:22.824Z">
-<meta property="article:modified_time" content="2023-02-25T08:12:22.824Z">
+<meta property="article:modified_time" content="2024-09-24T09:36:28.334Z">
 <meta property="article:author" content="MikeLuan">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -427,16 +427,7 @@
       
 
       
-        <!-- TOC -->
-<ul>
-<li><a href="#1-问题描述">1. 问题描述</a></li>
-<li><a href="#2-求解策略">2. 求解策略</a><ul>
-<li><a href="#21-暴力求解">2.1. 暴力求解</a></li>
-<li><a href="#22-kmp算法">2.2. KMP算法</a></li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
+        <!-- TOC -->autoauto- <a href="#1-问题描述">1. 问题描述</a>auto- <a href="#2-求解策略">2. 求解策略</a>auto    - <a href="#21-暴力求解">2.1. 暴力求解</a>auto    - <a href="#22-kmp算法">2.2. KMP算法</a>autoauto<!-- /TOC -->
 <h1 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h1><p>如何在字符串数据中，检测和提取以字符串形式给出的某一局部特征，这类操作都属于<strong>串模式匹配</strong>（string pattern matching）范畴，简称串匹配。一般的，即对基于同一字符表的任何主串$T(|T|=n)$和模式串$P(|P|=m)$：判定$T$中是否存在某一子串与$P$相同，若存在（匹配），则报告该子串在$T$中的起始位置。</p>
 <p>一般串的长度都很大，但相对而言$n$更大，即满足$2&lt;<m<<n$，比如：
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">T</span> <span class="operator">=</span> <span class="string">&quot;Now is the time for all good people to come.&quot;</span></span><br><span class="line"><span class="attribute">P</span> <span class="operator">=</span> <span class="string">&quot;people&quot;</span></span><br><span class="line">T.indexOf(P) <span class="operator">=</span> <span class="number">29</span>.</span><br></pre></td></tr></table></figure></p>
@@ -492,8 +483,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/02/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0-%E5%A0%86%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/" rel="next" title="堆的简单应用">
-                <i class="fa fa-chevron-left"></i> 堆的简单应用
+              <a href="/2023/02/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" rel="next" title="二叉树的简单操作">
+                <i class="fa fa-chevron-left"></i> 二叉树的简单操作
               </a>
             
           </div>
@@ -502,8 +493,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/02/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C/" rel="prev" title="二叉树的简单操作">
-                二叉树的简单操作 <i class="fa fa-chevron-right"></i>
+              <a href="/2023/02/25/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0-%E9%93%BE%E8%A1%A8%E9%97%AE%E9%A2%98/" rel="prev" title="链表问题">
+                链表问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -606,7 +597,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -617,7 +608,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -628,7 +619,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
